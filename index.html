@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png">
+    <title>逃兵大陸</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="fas fa-running me-2"></i>
+                逃兵大陸
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="deserter.html">閃兵傳奇</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="introduction.html">國軍簡介</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="recruits.html">新兵入伍指南</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">關於我們</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <img src="assets/hero_bg.jpg" alt="Hero Background" class="hero-bg-image">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">奔跑吧逃兵？</h1>
+            <p class="hero-subtitle">本網站以輕鬆幽默的方式介紹台灣三軍與兵役文化。</p>
+            
+            <!-- Warning Box -->
+            <div class="warning-box">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <span> 注意：本站所有軍種形象皆為虛構，若有雷同，純屬長官巧合。</span>
+            </div>
+            
+            <!-- Dropdown Button -->
+            <div class="dropdown mt-4">
+                <button class="btn btn-custom dropdown-toggle" type="button" id="branchDropdown" data-bs-toggle="dropdown">
+                    選擇兵種
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="branchDropdown">
+                    <li><a class="dropdown-item" href="#air-force">空軍</a></li>
+                    <li><a class="dropdown-item" href="#army">陸軍</a></li>
+                    <li><a class="dropdown-item" href="#navy">海軍</a></li>
+                    <li><a class="dropdown-item" href="#deserter">閃兵傳奇</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section">
+        <div class="container">
+            <div class="row g-4">
+                <!-- Air Force Card -->
+                <div class="col-12 col-md-6">
+                    <div class="category-card air-force" id="air-force">
+                        <div class="card-icon">
+                            <i class="fas fa-plane"></i>
+                        </div>
+                        <h3 class="card-title">空軍</h3>
+                        <p class="card-description">說明...........</p>
+                        <button class="btn btn-card">了解更多</button>
+                    </div>
+                </div>
+
+                <!-- Army Card -->
+                <div class="col-12 col-md-6">
+                    <div class="category-card army" id="army">
+                        <div class="card-icon">
+                            <i class="fas fa-person-rifle"></i>
+                        </div>
+                        <h3 class="card-title">陸軍</h3>
+                        <p class="card-description">說明...........</p>
+                        <button class="btn btn-card">了解更多</button>
+                    </div>
+                </div>
+
+                <!-- Navy Card -->
+                <div class="col-12 col-md-6">
+                    <div class="category-card navy" id="navy">
+                        <div class="card-icon">
+                            <i class="fas fa-ship"></i>
+                        </div>
+                        <h3 class="card-title">海軍</h3>
+                        <p class="card-description">說明...........</p>
+                        <button class="btn btn-card">了解更多</button>
+                    </div>
+                </div>
+
+                <!-- Deserter Card -->
+                <div class="col-12 col-md-6">
+                    <div class="category-card deserter" id="deserter">
+                        <div class="card-icon">
+                            <i class="fas fa-running"></i>
+                        </div>
+                        <h3 class="card-title">閃兵傳奇</h3>
+                        <p class="card-description">說明...........</p>
+                        <button class="btn btn-card">了解更多</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="mb-0">© 2025 逃兵. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="css/script.js"></script>
+</body>
+</html>

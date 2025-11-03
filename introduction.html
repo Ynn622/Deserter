@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="assets/favicon.png">
+    <title>逃兵大陸 - 國軍介紹</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/introduction.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="fas fa-running me-2"></i>
+                逃兵大陸
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="deserter.html">閃兵傳奇</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="introduction.html">國軍簡介</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="recruits.html">新兵入伍指南</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">關於我們</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="intro-hero-section">
+        <img src="assets/army.jpg" alt="中華民國國軍" class="intro-hero-image">
+        <div class="intro-hero-overlay"></div>
+        <div class="intro-hero-content">
+            <h1 class="intro-hero-title">中華民國國軍簡介</h1>
+            <p class="intro-hero-subtitle">守護家園的力量，也是每位役男年輕時的回憶核心。</p>
+        </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <section class="intro-content-section">
+        <div class="container">
+            <div class="row">
+                <!-- Left Side - Image -->
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <div class="intro-image-container">
+                        <img src="assets/army.jpg" alt="國軍訓練" class="intro-content-image">
+                    </div>
+                </div>
+
+                <!-- Right Side - Tabs Content -->
+                <div class="col-lg-7">
+                    <div class="intro-tabs-container">
+                        <!-- Tabs Navigation -->
+                        <ul class="nav nav-tabs intro-nav-tabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="overview-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#overview" type="button" role="tab">
+                                    簡介
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="total-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#total" type="button" role="tab">
+                                    全營類別
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="service-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#service" type="button" role="tab">
+                                    兵役期間
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="current-tab" data-bs-toggle="tab" 
+                                        data-bs-target="#current" type="button" role="tab">
+                                    現今
+                                </button>
+                            </li>
+                        </ul>
+
+                        <!-- Tabs Content -->
+                        <div class="tab-content intro-tab-content">
+                            <!-- 簡介 Tab -->
+                            <div class="tab-pane fade show active" id="overview" role="tabpanel">
+                                <p>中華民國國軍，簡稱國軍，是中華民國的軍隊，由陸軍統帥、國防部管轄。當今作為臺澎金馬防衛主體。陸軍最高統帥為總統，主要監督者為國防部長，全軍均實行訓練為戰力。</p>
+                            </div>
+
+                            <!-- 全營類別 Tab -->
+                            <div class="tab-pane fade" id="total" role="tabpanel">
+                                <p>全營類別，1953年至1955年之間，約有軍人168萬至70萬。1990年代，國軍由整體兵、精減後改，大幅裁撤兵、總兵力由60萬人精減至21.5萬人。雖然海洋軍兵團廓了縮減，但仍有部分單位後少或縮減收編減，</p>
+                            </div>
+
+                            <!-- 兵役期間 Tab -->
+                            <div class="tab-pane fade" id="service" role="tabpanel">
+                                <p>截至目前，常備國軍的現役5千人，加上後備資戰國軍的21萬人：後備應人約238萬人。中華民國年滿18歲男女性主共計22名，按照處件限制，主側段報義兵部利，兵時在調配戰問題，</p>
+                            </div>
+
+                            <!-- 現今 Tab -->
+                            <div class="tab-pane fade" id="current" role="tabpanel">
+                                <p>2018年起施行志兵：推考調設系制兵類型測報板：2022年起因應總勢勢氣升，復議強化義務役兵。閱項特殊裕役期間，復役將加增合格全民閱項推氣。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Three Aspects Section -->
+    <section class="aspects-section">
+        <div class="container">
+            <h2 class="aspects-title">深入了解國軍三大面向</h2>
+            
+            <div class="row g-4">
+                <!-- 國軍歷史 Card -->
+                <div class="col-md-4">
+                    <div class="aspect-card history-card">
+                        <div class="aspect-card-overlay"></div>
+                        <div class="aspect-card-content">
+                            <div class="aspect-icon">
+                                <i class="fas fa-landmark"></i>
+                            </div>
+                            <h3 class="aspect-card-title">國軍歷史</h3>
+                            <p class="aspect-card-description">從北伐到現代化軍隊，見證國家歷史的演進。</p>
+                            <button class="btn btn-aspect">探索歷史</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 兵力調整規劃 Card -->
+                <div class="col-md-4">
+                    <div class="aspect-card military-card">
+                        <div class="aspect-card-overlay"></div>
+                        <div class="aspect-card-content">
+                            <div class="aspect-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="aspect-card-title">兵力調整規劃</h3>
+                            <p class="aspect-card-description">精實案、精進案等改革方案，國軍如何與時俱進？</p>
+                            <button class="btn btn-aspect">了解規劃</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 薪資行情 Card -->
+                <div class="col-md-4">
+                    <div class="aspect-card salary-card">
+                        <div class="aspect-card-overlay"></div>
+                        <div class="aspect-card-content">
+                            <div class="aspect-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <h3 class="aspect-card-title">薪資行情</h3>
+                            <p class="aspect-card-description">志願役月薪多少？義務役又薪多少？</p>
+                            <button class="btn btn-aspect">查看薪資</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p class="mb-0">© 2025 逃兵. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="css/introduction.js"></script>
+</body>
+
+</html>
