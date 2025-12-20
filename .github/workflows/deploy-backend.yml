@@ -1,0 +1,46 @@
+name: Deploy Backend to Hugging Face Spaces
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'  # 只在 backend 資料夾有變更時觸發
+
+jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Push Backend to Hugging Face Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_SPACE_ID: ${{ secrets.HF_SPACE_ID }}
+        run: |
+          # 建立臨時目錄
+          mkdir -p /tmp/hf-space
+          
+          # 只複製 backend 內容到臨時目錄
+          cp -r backend/* /tmp/hf-space/
+          
+          # 設定 git config
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          
+          # 進入臨時目錄並初始化新的 git
+          cd /tmp/hf-space
+          git init
+          git checkout -b main
+
+          # 為 Hugging Face 準備專門的 README
+          cp README_HF.md README.md
+          git add .
+          git commit -m "Update README for Hugging Face deployment" || echo "No changes to commit"
+          
+          # 推送到 Hugging Face Space
+          git remote add space https://user:$HF_TOKEN@huggingface.co/spaces/$HF_SPACE_ID
+          git push space main:main --force

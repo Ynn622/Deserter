@@ -1,0 +1,7 @@
+beautifulsoup4
+lxml
+cloudscraper
+fastapi
+uvicorn[standard]
+python-multipart
+python-dotenv
