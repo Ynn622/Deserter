@@ -38,6 +38,8 @@ jobs:
         
       - name: Build
         working-directory: ./frontend
+        env:
+          VITE_FIREBASE_CONFIG: ${{ secrets.VITE_FIREBASE_CONFIG }}
         run: npm run build
         
       - name: Copy 404 fallback
