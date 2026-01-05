@@ -1,6 +1,7 @@
 beautifulsoup4
 lxml
 cloudscraper
+pandas
 fastapi
 uvicorn[standard]
 python-multipart

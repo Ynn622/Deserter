@@ -6,6 +6,8 @@ from fastapi.openapi.docs import get_swagger_ui_html, get_redoc_html
 from fastapi.openapi.utils import get_openapi
 import secrets
 
+from API import news_router
+
 from util.config import Env
 
 # 初始化 HTTPBasic 認證
@@ -42,7 +44,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 # 引入路由
-# app.include_router(linebot_router)
+app.include_router(news_router.router)
 
 # 受保護的 OpenAPI schema
 @app.get("/openapi.json", include_in_schema=False)
