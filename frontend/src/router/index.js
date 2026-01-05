@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../pages/HomePage.vue'
 import DesertersPage from '../pages/DesertersPage.vue'
+import DeserterDetailPage from '../pages/DeserterDetailPage.vue'
 import LotteryPage from '../pages/LotteryPage.vue'
 import MilitaryPage from '../pages/MilitaryPage.vue'
 import NewSoldierGuidePage from '../pages/NewSoldierGuidePage.vue'
@@ -15,6 +16,11 @@ const routes = [
     path: '/deserters',
     name: 'Deserters',
     component: DesertersPage
+  },
+  {
+    path: '/deserters/:id',
+    name: 'DeserterDetail',
+    component: DeserterDetailPage
   },
   {
     path: '/lottery',

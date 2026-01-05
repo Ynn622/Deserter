@@ -1,7 +1,7 @@
 <template>
-  <div 
-    class="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden"
-    @click="handleClick"
+  <router-link
+    :to="{ name: 'DeserterDetail', params: { id: deserter.id }, state: { deserter } }"
+    class="group bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer overflow-hidden block"
   >
     <div class="flex items-center p-4 lg:p-6">
       <!-- Image -->
@@ -24,14 +24,11 @@
       </div>
 
       <!-- Info Button -->
-      <button 
-        class="w-10 h-10 lg:w-12 lg:h-12 flex-shrink-0 rounded-full bg-gray-800 hover:bg-green-700 flex items-center justify-center text-white transition-colors"
-        @click.stop="handleInfoClick"
-      >
+      <div class="w-10 h-10 lg:w-12 lg:h-12 flex-shrink-0 rounded-full bg-gray-800 group-hover:bg-green-700 flex items-center justify-center text-white transition-colors">
         <font-awesome-icon icon="chevron-right" />
-      </button>
+      </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script setup>
@@ -41,14 +38,4 @@ const props = defineProps({
     required: true
   }
 })
-
-const emit = defineEmits(['click', 'info'])
-
-const handleClick = () => {
-  emit('click', props.deserter)
-}
-
-const handleInfoClick = () => {
-  emit('info', props.deserter)
-}
 </script>
