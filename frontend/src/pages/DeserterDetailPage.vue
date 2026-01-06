@@ -84,7 +84,7 @@
               </div>
 
               <!-- 內容區 -->
-              <div class="bg-white rounded-b-lg shadow-lg px-4 py-2 md:py-6 md:px-4 flex-1 flex flex-col">
+              <div class="bg-white rounded-b-lg shadow-lg p-4 md:px-4 md:py-6 flex-1 flex flex-col">
                 <!-- 逃兵快訊 -->
                 <div v-if="activeTab === 'news'" class="flex-1 flex flex-col">
                   <!-- 載入中 -->
@@ -121,7 +121,7 @@
                           <div class="flex items-center gap-4 text-xs text-gray-500">
                             <span class="flex items-center gap-1">
                               <font-awesome-icon :icon="['fas', 'newspaper']" />
-                              {{ item.Source='udn' ? '聯合新聞網' : item.Source }}
+                              {{ item.Source=='udn' ? '聯合新聞網' : item.Source }}
                             </span>
                             <span class="flex items-center gap-1">
                               <font-awesome-icon :icon="['fas', 'clock']" />
@@ -145,24 +145,41 @@
                 </div>
 
                 <!-- 討論區 -->
-                <div v-else-if="activeTab === 'comments'" class="flex-1 flex flex-col">
+                <div v-else-if="activeTab === 'comments'" class="flex-1 flex flex-col lg:px-2">
                   <!-- 評論列表 -->
-                  <div class="space-y-4 mb-6 flex-1 overflow-y-auto">
+                  <div class="space-y-4 flex-1 overflow-y-auto">
                     <div
                       v-for="comment in comments"
                       :key="comment.id"
                       class="border-b border-gray-200 pb-4 last:border-b-0"
                     >
-                      <div class="flex items-start gap-4">
-                        <div class="flex-shrink-0 w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                          <font-awesome-icon :icon="['fas', 'user']" class="text-blue-600" />
+                      <div class="flex items-start gap-3 md:gap-4">
+                        <div class="flex-shrink-0 w-6 h-6 md:w-10 md:h-10 bg-blue-100 rounded-full flex items-center justify-center overflow-hidden">
+                          <img 
+                            v-if="comment.userAvatar" 
+                            :src="comment.userAvatar" 
+                            :alt="comment.userName"
+                            class="w-full h-full object-cover"
+                          />
+                          <font-awesome-icon v-else :icon="['fas', 'user']" class="text-blue-600" />
                         </div>
-                        <div class="flex-1">
+                        <div class="flex-1 min-w-0">
                           <div class="flex items-center justify-between mb-2">
-                            <h4 class="font-semibold text-gray-800">{{ comment.user }}</h4>
-                            <span class="text-sm text-gray-500">{{ comment.time }}</span>
+                            <span class="font-semibold text-gray-800 text-sm md:text-base">{{ comment.userName }}</span>
+                            <div class="flex items-center gap-2">
+                              <!-- 刪除按鈕（僅顯示給留言者） -->
+                              <button
+                                v-if="canDeleteComment(comment)"
+                                @click="handleDeleteComment(comment.id)"
+                                class="text-red-500 hover:text-red-700 transition-colors pb-0.5"
+                                title="刪除留言"
+                              >
+                                <font-awesome-icon :icon="['fas', 'trash']" class="text-sm" />
+                              </button>
+                              <span class="text-sm text-gray-500">{{ formatCommentTime(comment.createdAt) }}</span>
+                            </div>
                           </div>
-                          <p class="text-gray-700">{{ comment.content }}</p>
+                          <p class="text-gray-700 text-sm md:text-base break-words overflow-hidden">{{ comment.content }}</p>
                         </div>
                       </div>
                     </div>
@@ -175,21 +192,31 @@
                   </div>
 
                   <!-- 留言輸入框 -->
-                  <div class="border-t border-gray-200 pt-6">
-                    <div class="flex gap-3">
+                  <div class="border-t border-gray-200 pt-4">
+                    <!-- 未登入提示 -->
+                    <div v-if="!isLoggedIn" class="text-center text-gray-400 text-sm md:text-base">
+                      <p>登入後解鎖留言功能！</p>
+                    </div>
+                    <!-- 留言輸入 -->
+                    <div v-else class="flex gap-3">
                       <input
                         v-model="newComment"
                         type="text"
                         placeholder="留下一些想法吧..."
                         class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                         @keyup.enter="submitComment"
+                        :disabled="isSubmitting"
                       />
                       <button
                         @click="submitComment"
-                        class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center gap-2"
+                        :disabled="isSubmitting || !newComment.trim()"
+                        class="px-4 sm:px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        <font-awesome-icon :icon="['fas', 'paper-plane']" />
-                        <span class="hidden sm:inline">送出</span>
+                        <font-awesome-icon 
+                          :icon="isSubmitting ? ['fas', 'spinner'] : ['fas', 'paper-plane']" 
+                          :class="{ 'animate-spin': isSubmitting }"
+                        />
+                        <span class="hidden sm:inline">{{ isSubmitting ? '送出中...' : '送出' }}</span>
                       </button>
                     </div>
                   </div>
@@ -206,8 +233,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { addComment, deleteComment, subscribeToComments } from '../services/firebase'
+import { currentUser, isLoggedIn } from '../stores/user'
 import Nav from './components/Nav.vue'
 import AppFooter from './components/AppFooter.vue'
 
@@ -217,26 +246,10 @@ const loading = ref(false)
 const news = ref([])
 const updateTime = ref('')
 const newComment = ref('')
-const comments = ref([
-  {
-    id: 1,
-    user: 'User',
-    content: '太扯ㄌ',
-    time: '2025/12/31 13:00'
-  },
-  {
-    id: 2,
-    user: '芭菲佑',
-    content: '真假啊我還唱會都買好ㄌ',
-    time: '2025/12/31 15:00'
-  },
-  {
-    id: 3,
-    user: 'User 逃兵',
-    content: '哈哈哈我也想逃兵',
-    time: '2025/12/31 17:00'
-  }
-])
+const comments = ref([])
+const isSubmitting = ref(false)
+
+let unsubscribe = null
 
 // 從 history.state 獲取逃兵資料
 const deserter = computed(() => {
@@ -309,24 +322,75 @@ const fetchNews = async () => {
 }
 
 // 提交評論
-const submitComment = () => {
-  if (newComment.value.trim()) {
-    const comment = {
-      id: comments.value.length + 1,
-      user: 'User',
-      content: newComment.value.trim(),
-      time: new Date().toLocaleString('zh-TW', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit'
-      }).replace(/\//g, '/')
+const submitComment = async () => {
+  if (!newComment.value.trim() || !isLoggedIn.value || isSubmitting.value) {
+    return
+  }
+  
+  isSubmitting.value = true
+  
+  try {
+    const result = await addComment(
+      deserter.value.id.toString(),
+      newComment.value.trim(),
+      currentUser.value
+    )
+    
+    if (result.success) {
+      newComment.value = ''
+      console.log('評論新增成功')
+    } else {
+      alert('留言失敗：' + result.error)
     }
-    comments.value.unshift(comment)
-    newComment.value = ''
+  } catch (error) {
+    console.error('提交評論錯誤:', error)
+    alert('留言時發生錯誤')
+  } finally {
+    isSubmitting.value = false
   }
 }
+
+// 刪除評論
+const handleDeleteComment = async (commentId) => {
+  if (!confirm('確定要刪除這則留言嗎？')) {
+    return
+  }
+  
+  try {
+    const result = await deleteComment(deserter.value.id.toString(), commentId)
+    
+    if (result.success) {
+      console.log('評論刪除成功')
+    } else {
+      alert('刪除失敗：' + result.error)
+    }
+  } catch (error) {
+    console.error('刪除評論錯誤:', error)
+    alert('刪除時發生錯誤')
+  }
+}
+
+// 檢查是否可以刪除評論
+const canDeleteComment = (comment) => {
+  return isLoggedIn.value && currentUser.value && comment.userId === currentUser.value.uid
+}
+
+// 格式化評論時間
+const formatCommentTime = (timestamp) => {
+  if (!timestamp) return ''
+  
+  // Firestore Timestamp 轉換
+  const date = timestamp.toDate ? timestamp.toDate() : new Date(timestamp)
+  
+  const year = date.getFullYear()
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const day = String(date.getDate()).padStart(2, '0')
+  const hours = String(date.getHours()).padStart(2, '0')
+  const minutes = String(date.getMinutes()).padStart(2, '0')
+  
+  return `${year}/${month}/${day} ${hours}:${minutes}`
+}
+
 
 onMounted(() => {
   // 檢查是否有逃兵資料
@@ -337,6 +401,18 @@ onMounted(() => {
   }
   
   fetchNews()
+  
+  // 訂閱評論更新
+  unsubscribe = subscribeToComments(deserter.value.id.toString(), (newComments) => {
+    comments.value = newComments
+  })
+})
+
+onUnmounted(() => {
+  // 取消訂閱
+  if (unsubscribe) {
+    unsubscribe()
+  }
 })
 </script>
 
