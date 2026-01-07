@@ -12,10 +12,16 @@ import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 
+/* SweetAlert2 */
+import Swal from 'sweetalert2'
+
 library.add(fas, far, fab)
 
 // 初始化認證狀態監聽
 initAuth()
+
+// 將 Swal 設為全局變量
+window.Swal = Swal
 
 const app = createApp(App)
 app.component('font-awesome-icon', FontAwesomeIcon)

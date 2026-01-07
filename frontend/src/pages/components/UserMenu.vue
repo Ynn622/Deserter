@@ -91,6 +91,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { loginWithGoogle as firebaseLogin, logout as firebaseLogout } from '../../services/firebase'
 import { currentUser, isLoggedIn } from '../../stores/user'
+import Swal from 'sweetalert2'
 
 const isMenuOpen = ref(false)
 const isHovering = ref(false)
@@ -128,20 +129,20 @@ const loginWithGoogle = async () => {
     
     if (result && result.success) {
       // Popup 模式下會直接返回成功
-      console.log('登入成功:', result.user)
+      Swal.fire({ icon: 'success', title: '登入成功', timer: 1000, showConfirmButton: false })
       closeMenu()
     } else if (result && !result.success) {
       // 處理錯誤
       if (result.errorCode === 'auth/popup-closed-by-user') {
         console.log('用戶關閉登入視窗')
       } else {
-        alert(result.error)
+        Swal.fire({ icon: 'error', title: '登入失敗', text: result.error })
       }
     }
-    // Redirect 模式下不會有返回值，頁面會重新導向
+    // Redirect 模式下不會有返回值,頁面會重新導向
   } catch (error) {
     console.error('登入錯誤:', error)
-    alert('登入時發生錯誤')
+    Swal.fire({ icon: 'error', title: '登入時發生錯誤' })
   } finally {
     isLoading.value = false
   }
@@ -152,14 +153,14 @@ const handleLogout = async () => {
   try {
     const result = await firebaseLogout()
     if (result.success) {
-      console.log('登出成功')
+      Swal.fire({ icon: 'success', title: '已成功登出', timer: 1000, showConfirmButton: false })
       closeMenu()
     } else {
-      alert('登出失敗: ' + result.error)
+      Swal.fire({ icon: 'error', title: '登出失敗', text: result.error })
     }
   } catch (error) {
     console.error('登出錯誤:', error)
-    alert('登出時發生錯誤')
+    Swal.fire({ icon: 'error', title: '登出時發生錯誤' })
   } finally {
     isLoading.value = false
   }
@@ -182,7 +183,7 @@ const recommendFriend = async () => {
     } else {
       // 降級方案：複製連結到剪貼簿
       await navigator.clipboard.writeText(shareData.url)
-      alert('連結已複製到剪貼簿！\n\n' + shareData.text)
+      Swal.fire({ icon: 'success', title: '連結已複製到剪貼簿！', text: shareData.text })
     }
   } catch (error) {
     // 用戶取消分享或發生錯誤
@@ -191,7 +192,7 @@ const recommendFriend = async () => {
     } else {
       console.error('分享失敗:', error)
       // 最終降級方案：顯示連結讓用戶手動複製
-      alert('分享功能暫時無法使用\n\n請複製以下連結分享給朋友：\n' + shareData.url)
+      Swal.fire({ icon: 'info', title: '分享功能暫時無法使用', text: '請複製以下連結分享給朋友：' + shareData.url })
     }
   }
 }

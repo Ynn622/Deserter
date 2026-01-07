@@ -338,13 +338,13 @@ const submitComment = async () => {
     
     if (result.success) {
       newComment.value = ''
-      console.log('評論新增成功')
+      console.log('留言成功！')
     } else {
-      alert('留言失敗：' + result.error)
+      Swal.fire({ icon: 'error', title: '留言失敗', text: result.error })
     }
   } catch (error) {
     console.error('提交評論錯誤:', error)
-    alert('留言時發生錯誤')
+    Swal.fire({ icon: 'error', title: '留言時發生錯誤' })
   } finally {
     isSubmitting.value = false
   }
@@ -352,7 +352,17 @@ const submitComment = async () => {
 
 // 刪除評論
 const handleDeleteComment = async (commentId) => {
-  if (!confirm('確定要刪除這則留言嗎？')) {
+  const result = await Swal.fire({
+    title: '確定要刪除這則留言嗎？',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: '確定刪除',
+    cancelButtonText: '取消'
+  })
+  
+  if (!result.isConfirmed) {
     return
   }
   
@@ -360,13 +370,13 @@ const handleDeleteComment = async (commentId) => {
     const result = await deleteComment(deserter.value.id.toString(), commentId)
     
     if (result.success) {
-      console.log('評論刪除成功')
+      Swal.fire({ icon: 'success', title: '刪除成功！', timer: 1000, showConfirmButton: false })
     } else {
-      alert('刪除失敗：' + result.error)
+      Swal.fire({ icon: 'error', title: '刪除失敗', text: result.error })
     }
   } catch (error) {
     console.error('刪除評論錯誤:', error)
-    alert('刪除時發生錯誤')
+    Swal.fire({ icon: 'error', title: '刪除時發生錯誤' })
   }
 }
 
