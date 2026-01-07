@@ -29,14 +29,18 @@ def get_udn_news_summary(keyword, page=1) -> pd.DataFrame:
     udn_url = f"https://udn.com/api/more?page={page}&id=search:{keyword}&channelId=2&type=searchword&last_page=100"
     udn_json_news = requests.get(udn_url).json()['lists']
     for item in udn_json_news:
-        url = item['titleLink']
-        # if not url.startswith('https://udn.com/news'): continue  # 跳過專欄文章
-        title = item['title']
-        summary = item['paragraph']
-        time_str = item['time']['dateTime']
-        if len(time_str) == 16:  time_str += ":00"  # 補足秒數
-        timestamp = int(datetime.strptime(time_str, "%Y-%m-%d %H:%M:%S").replace(tzinfo=TaiwanTime.TIMEZONE).timestamp())   # 轉成時間戳（單位：秒）
-        data.append([timestamp, title, summary, url, 'udn'])
+        try:
+            url = item['titleLink']
+            # if not url.startswith('https://udn.com/news'): continue  # 跳過專欄文章
+            title = item['title']
+            summary = item['paragraph']
+            time_str = item['time']['dateTime']
+            if len(time_str) == 16:  time_str += ":00"  # 補足秒數
+            timestamp = int(datetime.strptime(time_str, "%Y-%m-%d %H:%M:%S").replace(tzinfo=TaiwanTime.TIMEZONE).timestamp())   # 轉成時間戳（單位：秒）
+            data.append([timestamp, title, summary, url, 'udn'])
+        except Exception as e:
+            print(f"Error processing item: {e}")
+            continue
     return pd.DataFrame(data, columns=col)
 
 
