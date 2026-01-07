@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-100">
+  <div class="min-h-[100dvh] bg-gray-100 flex flex-col">
     <Nav />
     
     <!-- Hero Section -->

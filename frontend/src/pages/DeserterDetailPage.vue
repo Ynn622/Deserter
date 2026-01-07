@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-100  flex flex-col">
+  <div class="min-h-[100dvh] bg-gray-100 flex flex-col">
     <Nav />
     
     <main class="md:pb-2 flex-1">

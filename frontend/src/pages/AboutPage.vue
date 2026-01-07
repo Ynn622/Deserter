@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen bg-gray-100 flex flex-col">
+    <div class="min-h-[100dvh] bg-gray-100 flex flex-col">
         <Nav />
 
         <PageHeader title="關於我們" description="您的畫面無法顯示，因為我們怕被抓走～～" />
