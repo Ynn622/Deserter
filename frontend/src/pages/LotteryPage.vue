@@ -95,7 +95,7 @@
                     <!-- 日期 -->
                     <div class="text-center mb-3">
                       <p class="text-base lg:text-lg font-bold tracking-widest">
-                        114 年  01 月  01 日
+                        {{ new Date().getFullYear() - 1911 }} 年  {{ String(new Date().getMonth() + 1).padStart(2, '0') }} 月  {{ String(new Date().getDate()).padStart(2, '0') }} 日
                       </p>
                     </div>
                     
@@ -378,6 +378,7 @@ const drawLottery = () => {
   // 隨機選擇結果
   const randomIndex = Math.floor(Math.random() * lotteryData.length)
   currentNumber.value = randomIndex + 1
+  result.value = lotteryData[randomIndex]
   
   // 箱子晃動
   gsap.to(lotteryBox.value, {
@@ -395,8 +396,7 @@ const drawLottery = () => {
         duration: 1,
         ease: 'power2.out',
         onComplete: () => {
-          // 顯示結果
-          result.value = lotteryData[randomIndex]
+          // 顯示 Modal
           showModal.value = true
           showResult.value = true
           
