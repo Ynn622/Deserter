@@ -31,7 +31,7 @@ defineProps({
 onMounted(() => {
   gsap.from(header.value, {
     opacity: 0,
-    y: 30,
+    y: -30,
     duration: 0.8,
     ease: 'power2.out'
   })
