@@ -2,13 +2,13 @@
   <div class="min-h-screen bg-gray-100  flex flex-col">
     <Nav />
     
-    <main class="pb-4 flex-1">
+    <main class="md:pb-2 flex-1">
       <div class="container mx-auto p-4 lg:py-6">
         <div class="max-w-7xl mx-auto">
           <!-- 返回按鈕 -->
           <button
             @click="$router.back()"
-            class="mb-4 lg:mb-6 flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
+            class="mb-4 flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
           >
             <font-awesome-icon :icon="['fas', 'arrow-left']" />
             <span>返回列表</span>
@@ -17,7 +17,7 @@
           <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6 lg:items-start">
             <!-- 左側：逃兵詳細資訊 -->
             <div class="lg:col-span-1">
-              <div class="bg-white rounded-lg shadow-lg p-6 h-full flex flex-col">
+              <div ref="leftSide" class="bg-white rounded-lg shadow-lg p-6 h-full flex flex-col">
                 <!-- 頭像 -->
                 <div class="mb-6">
                   <img
@@ -60,7 +60,7 @@
             <!-- 右側：標籤頁 -->
             <div class="lg:col-span-2 flex flex-col">
               <!-- 標籤切換 -->
-              <div class="bg-white rounded-t-lg shadow-lg">
+              <div class="bg-white rounded-t-lg shadow-lg sticky top-0 z-10">
                 <div class="flex border-b">
                   <button
                     @click="activeTab = 'news'"
@@ -84,7 +84,11 @@
               </div>
 
               <!-- 內容區 -->
-              <div class="bg-white rounded-b-lg shadow-lg p-4 md:px-4 md:py-6 flex-1 flex flex-col">
+              <div 
+                ref="rightContent"
+                :style="{ maxHeight: rightMaxHeight }"
+                class="bg-white rounded-b-lg shadow-lg p-4 md:px-4 md:py-6 flex flex-col overflow-y-auto"
+              >
                 <!-- 逃兵快訊 -->
                 <div v-if="activeTab === 'news'" class="flex-1 flex flex-col">
                   <!-- 載入中 -->
@@ -248,6 +252,9 @@ const updateTime = ref('')
 const newComment = ref('')
 const comments = ref([])
 const isSubmitting = ref(false)
+const leftSide = ref(null)
+const rightContent = ref(null)
+const rightMaxHeight = ref('')
 
 let unsubscribe = null
 
@@ -401,6 +408,17 @@ const formatCommentTime = (timestamp) => {
   return `${year}/${month}/${day} ${hours}:${minutes}`
 }
 
+// 計算右側內容區高度
+const updateRightHeight = () => {
+  if (leftSide.value && window.innerWidth >= 1024) {
+    const leftHeight = leftSide.value.offsetHeight
+    // 減去標籤頁的高度（約 57px）
+    rightMaxHeight.value = `${leftHeight - 57}px`
+  } else {
+    // 手機版固定
+    rightMaxHeight.value = '75vh'
+  }
+}
 
 onMounted(() => {
   // 檢查是否有逃兵資料
@@ -416,6 +434,14 @@ onMounted(() => {
   unsubscribe = subscribeToComments(deserter.value.id.toString(), (newComments) => {
     comments.value = newComments
   })
+  
+  // 計算右側高度
+  setTimeout(() => {
+    updateRightHeight()
+  }, 100)
+  
+  // 監聽視窗大小變化
+  window.addEventListener('resize', updateRightHeight)
 })
 
 onUnmounted(() => {
@@ -423,6 +449,9 @@ onUnmounted(() => {
   if (unsubscribe) {
     unsubscribe()
   }
+  
+  // 移除事件監聽器
+  window.removeEventListener('resize', updateRightHeight)
 })
 </script>
 
