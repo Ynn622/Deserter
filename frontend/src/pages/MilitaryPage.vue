@@ -216,12 +216,13 @@ const learnMoreCards = [
     title: '國軍歷史',
     description: '從北伐到現代化部隊，見證百年國防演變。',
     color: '#5a6f5c',
-    url: ''
+    url: 'https://zh.wikipedia.org/zh-tw/%E4%B8%AD%E8%8F%AF%E6%B0%91%E5%9C%8B%E5%9C%8B%E8%BB%8D'
   },
   {
     title: '兵力調整規劃',
     description: '精實案、精進案到全民防衛，國軍如何與時俱進？',
-    color: '#4a5f6d'
+    color: '#4a5f6d',
+    url: 'https://www.ey.gov.tw/Page/5A8A0CB5B41DA11E/75930814-745f-43e3-bbfe-4d39e94f8afa'
   },
   {
     title: '義務行情',
