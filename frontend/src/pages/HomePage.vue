@@ -80,7 +80,8 @@ const features = [
   {
     id: 2,
     title: '新兵入伍指南',
-    description: '第一次入伍？別怕，這裡是你的軍中求生指南！'
+    description: '第一次入伍？別怕，這裡是你的軍中求生指南！',
+    route: '/new-soldier-guide'
   },
   {
     id: 3,
