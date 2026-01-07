@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-100">
+  <div class="min-h-screen bg-gray-100 flex flex-col">
     <Nav />
     
     <PageHeader 
@@ -8,7 +8,7 @@
     />
 
     <!-- Lottery Section -->
-    <main class="py-12 lg:py-20 h-[calc(65vh)]">
+    <main class="py-12 lg:py-20 flex-1">
       <div class="container mx-auto px-4">
         <div class="max-w-2xl lg:max-w-4xl mx-auto">
           

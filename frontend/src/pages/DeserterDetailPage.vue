@@ -1,8 +1,8 @@
 <template>
-  <div class="min-h-screen bg-gray-100">
+  <div class="min-h-screen bg-gray-100  flex flex-col">
     <Nav />
     
-    <main class="pb-4">
+    <main class="pb-4 flex-1">
       <div class="container mx-auto p-4 lg:py-6">
         <div class="max-w-7xl mx-auto">
           <!-- 返回按鈕 -->
