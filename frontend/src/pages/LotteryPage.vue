@@ -66,15 +66,15 @@
                       </div>
                       <!-- 右側 -->
                       <div class="text-right">
-                        <p class="text-base lg:text-lg font-bold">第三類</p>
+                        <p class="text-base lg:text-lg font-bold">第 三 類</p>
                       </div>
                     </div>
                     
                     <!-- 抽籤役男 -->
                     <div class="mb-4">
                       <div class="flex items-center justify-between mb-2">
-                        <span class="text-sm lg:text-base font-bold">抽籤役男</span>
-                        <div class="w-32 h-10 lg:w-40 lg:h-12 border-2 border-gray-400"></div>
+                        <span class="text-sm lg:text-base font-bold">抽 籤 役 男</span>
+                        <div class="w-10 h-10 lg:w-16 lg:h-16 border-2 border-gray-400"></div>
                       </div>
                     </div>
                     
@@ -83,7 +83,7 @@
                       <span class="text-sm lg:text-base font-bold">代 抽 人</span>
                       <div class="relative">
                         <!-- 紅色印章 -->
-                        <div class="w-20 h-20 lg:w-24 lg:h-24 border-4 border-red-600 bg-red-50 flex items-center justify-center transform -rotate-3">
+                        <div class="w-14 h-14 lg:w-20 lg:h-20 border-4 border-red-600 bg-red-50 flex items-center justify-center transform -rotate-3">
                           <div class="text-center">
                             <p class="text-red-600 text-xs lg:text-sm font-black leading-tight">逃兵</p>
                             <p class="text-red-600 text-xs lg:text-sm font-black leading-tight">大陸</p>
@@ -117,25 +117,21 @@
             <p ref="instruction" class="text-gray-600 text-lg mt-8 text-center">
               {{ isDrawing ? '抽籤中...' : '點擊箱子開始抽籤' }}
             </p>
-            
-            <!-- 解籤說明（在抽籤後顯示） -->
-            <div 
-              v-if="showResult"
-              ref="resultText"
-              class="mt-8 max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-6 opacity-0"
-            >
-              <div class="text-center mb-4">
-                <h3 class="text-2xl font-bold text-gray-800 mb-2">{{ result?.unit }}</h3>
-                <div 
-                  class="inline-block px-4 py-2 rounded-full text-white font-bold"
-                  :class="getBranchColor(result?.branch)"
-                >
-                  {{ result?.branch }}
-                </div>
-              </div>
-              <p class="text-gray-700 leading-relaxed text-center">
-                {{ result?.description }}
-              </p>
+
+            <!-- 功能按鈕 -->
+            <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 w-full max-w-md">
+              <button
+                @click="showRateModal = true"
+                class="flex-1 px-4 sm:px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors shadow-lg text-sm sm:text-base"
+              >
+                📊 中籤率
+              </button>
+              <button
+                @click="showInfoModal = true"
+                class="flex-1 px-4 sm:px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors shadow-lg text-sm sm:text-base"
+              >
+                📋 抽籤注意事項
+              </button>
             </div>
           </div>
 
@@ -151,7 +147,7 @@
     >
       <div 
         ref="modal"
-        class="modal-paper relative max-w-2xl w-full transform scale-0"
+        class="modal-paper relative max-w-xl w-full transform scale-0"
         @click.stop
       >
         <!-- 抽籤單 -->
@@ -170,15 +166,15 @@
               </div>
               <!-- 右側 -->
               <div class="text-right">
-                <p class="text-xl lg:text-2xl font-bold">第三類</p>
+                <p class="text-xl lg:text-2xl font-bold">第 三 類</p>
               </div>
             </div>
             
             <!-- 抽籤役男 -->
             <div class="mb-6">
               <div class="flex items-center justify-between mb-3">
-                <span class="text-lg lg:text-xl font-bold">抽籤役男</span>
-                <div class="w-40 h-14 lg:w-48 lg:h-16 border-2 border-gray-400"></div>
+                <span class="text-lg lg:text-xl font-bold">抽 籤 役 男</span>
+                <div class="w-14 h-14 lg:w-20 lg:h-20 border-2 border-gray-400"></div>
               </div>
             </div>
             
@@ -187,7 +183,7 @@
               <span class="text-lg lg:text-xl font-bold">代 抽 人</span>
               <div class="relative">
                 <!-- 紅色印章 -->
-                <div class="w-28 h-28 lg:w-32 lg:h-32 border-4 border-red-600 bg-red-50 flex items-center justify-center transform -rotate-3">
+                <div class="w-18 h-18 lg:w-26 lg:h-26 border-4 border-red-600 bg-red-50 flex items-center justify-center transform -rotate-3">
                   <div class="text-center">
                     <p class="text-red-600 text-base lg:text-lg font-black leading-tight">逃兵</p>
                     <p class="text-red-600 text-base lg:text-lg font-black leading-tight">大陸</p>
@@ -215,32 +211,6 @@
           <div class="absolute inset-0 rounded-sm shadow-inner pointer-events-none" style="box-shadow: inset 0 0 20px rgba(0,0,0,0.05);"></div>
         </div>
 
-        <!-- 解籤說明 -->
-        <div class="bg-white rounded-lg shadow-lg p-6 lg:p-8 mb-6">
-          <div class="text-center mb-6">
-            <h3 class="text-2xl lg:text-3xl font-bold text-gray-800 mb-4" style="font-family: serif;">
-              解 籤
-            </h3>
-            <div class="flex items-center justify-center gap-4 flex-wrap">
-              <div 
-                class="inline-block px-6 py-2 rounded-full text-white font-bold text-lg"
-                :class="getBranchColor(result?.branch)"
-              >
-                {{ result?.branch }}
-              </div>
-              <div class="text-2xl font-bold text-gray-800" style="font-family: serif;">
-                {{ result?.unit }}
-              </div>
-            </div>
-          </div>
-          
-          <div class="border-t border-gray-300 pt-6">
-            <p class="text-gray-700 text-base lg:text-lg leading-relaxed text-center" style="font-family: serif;">
-              {{ result?.description }}
-            </p>
-          </div>
-        </div>
-
         <!-- 按鈕區 -->
         <div class="flex gap-4 justify-center">
           <button
@@ -254,6 +224,144 @@
             class="px-8 py-3 bg-red-700 hover:bg-red-800 text-white font-medium rounded-lg transition-colors shadow-lg text-lg"
           >
             再抽一次
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 中籤率 Modal -->
+    <div 
+      v-if="showRateModal"
+      class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-4"
+      @click="showRateModal = false"
+    >
+      <div 
+        class="bg-white rounded-lg shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+        @click.stop
+      >
+        <div class="p-4 sm:p-6 lg:p-8">
+          <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-4 sm:mb-6 text-center">
+            📊 國軍兵科配賦中籤率
+          </h2>
+          
+          <!-- 表格 -->
+          <div class="overflow-x-auto mb-4 sm:mb-6 -mx-4 sm:mx-0 px-4 sm:px-0">
+            <table class="w-full border-2 border-gray-800 min-w-[400px] sm:min-w-0">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th class="border-2 border-gray-800 p-2 sm:p-3 text-center font-bold text-xs sm:text-sm lg:text-base" rowspan="2">
+                    <div>軍種 / 類別</div>
+                  </th>
+                  <th class="border-2 border-gray-800 p-2 sm:p-3 text-center font-bold text-xs sm:text-sm lg:text-base" rowspan="2">陸軍</th>
+                  <th class="border-2 border-gray-800 p-2 sm:p-3 text-center font-bold text-xs sm:text-sm lg:text-base" colspan="2">海軍</th>
+                  <th class="border-2 border-gray-800 p-2 sm:p-3 text-center font-bold text-xs sm:text-sm lg:text-base" rowspan="2">空軍</th>
+                </tr>
+                <tr class="bg-gray-100">
+                  <th class="border-2 border-gray-800 p-2 sm:p-3 text-center font-bold text-xs sm:text-sm">艦艇兵</th>
+                  <th class="border-2 border-gray-800 p-2 sm:p-3 text-center font-bold text-xs sm:text-sm">陸戰隊</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center font-medium bg-gray-50 text-xs sm:text-sm lg:text-base">
+                    <div>第一類<br />航海類</div>
+                  </td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center bg-gray-300"></td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center text-sm sm:text-lg lg:text-xl font-bold">100%</td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center bg-gray-300"></td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center bg-gray-300"></td>
+                </tr>
+                <tr>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center font-medium bg-gray-50 text-xs sm:text-sm lg:text-base">
+                    <div>第二類<br />航空類</div>
+                  </td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center bg-gray-300"></td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center bg-gray-300"></td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center bg-gray-300"></td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center text-sm sm:text-lg lg:text-xl font-bold">100%</td>
+                </tr>
+                <tr>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center font-medium bg-gray-50 text-xs sm:text-sm lg:text-base">
+                    <div>第三類<br />通用類</div>
+                  </td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center text-sm sm:text-lg lg:text-xl font-bold">92%</td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center text-sm sm:text-lg lg:text-xl font-bold">2%</td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center text-sm sm:text-lg lg:text-xl font-bold">6%</td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center bg-gray-300"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <p class="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-6 px-2 sm:px-0">
+            抽籤類別：請參考 <a href="https://military.taichung.gov.tw/TAW/Web/images/%E6%8A%BD%E7%B1%A4%E5%BE%B5%E6%9C%8D%E5%B8%B8%E5%82%99%E5%85%B5%E5%BD%B9%E6%89%80%E7%BF%92%E5%B0%88%E9%95%B7%E7%A7%91%E7%B3%BB%E6%89%80%E7%B5%84%E5%88%A5%E5%B0%8D%E7%85%A7%E8%A1%A8.pdf" target="_blank" class="text-blue-600 hover:underline">國軍兵員配賦類別說明</a>
+            <br />本表係依行政院核定「國軍 110 年兵員配賦計畫」彙辦理。
+            <br /><br />Tips: 若當場次無海軍艦艇兵，機率會轉移至陸軍(約94%)
+          </p>
+          
+          <button @click="showRateModal = false" 
+                  class="w-full px-4 sm:px-6 py-2.5 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors text-sm sm:text-base">
+            關閉
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 抽籤注意事項 Modal -->
+    <div 
+      v-if="showInfoModal"
+      class="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-4"
+      @click="showInfoModal = false"
+    >
+      <div 
+        class="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+        @click.stop
+      >
+        <div class="p-4 sm:p-6 lg:p-8">
+          <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-4 sm:mb-6 text-center">
+            📋 抽籤注意事項
+          </h2>
+          
+          <div class="space-y-4 sm:space-y-6">
+            <!-- 抽籤當天該做什麼 -->
+            <div class="bg-blue-50 border-l-4 border-blue-600 p-4 sm:p-5 rounded-r-lg">
+              <h3 class="text-lg sm:text-xl font-bold text-blue-900 mb-3 sm:mb-4 flex items-center">
+                <span class="mr-2">📍</span>抽籤當天該做什麼
+              </h3>
+              
+              <div class="space-y-3 sm:space-y-4">
+                <div>
+                  <p class="font-semibold text-gray-800 mb-2 text-sm sm:text-base">役男應：</p>
+                  <ul class="space-y-2 ml-2 sm:ml-4">
+                    <li class="flex items-start">
+                      <span class="text-blue-600 mr-2 flex-shrink-0">•</span>
+                      <span class="text-gray-700 text-sm sm:text-base">按通知書上指定的 <strong>日期、時間與地點</strong> 準時到場。</span>
+                    </li>
+                    <li class="flex items-start">
+                      <span class="text-blue-600 mr-2 flex-shrink-0">•</span>
+                      <span class="text-gray-700 text-sm sm:text-base">攜帶 <strong>抽籤通知書、身分證和印章</strong>。</span>
+                    </li>
+                    <li class="flex items-start">
+                      <span class="text-blue-600 mr-2 flex-shrink-0">•</span>
+                      <span class="text-gray-700 text-sm sm:text-base">可親自參加抽籤（或委託 <strong>有行為能力之親屬代抽</strong>）。</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div class="bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+                  <p class="text-gray-700 text-sm sm:text-base">
+                    若役男未能到場，也未委託家屬代抽，則會由主持人 <strong>現場代抽</strong>（結果不得事後異議）。
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <button
+            @click="showInfoModal = false"
+            class="w-full mt-4 sm:mt-6 px-4 sm:px-6 py-2.5 sm:py-3 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-colors text-sm sm:text-base"
+          >
+            關閉
           </button>
         </div>
       </div>
@@ -274,11 +382,11 @@ const lotteryBox = ref(null)
 const instruction = ref(null)
 const paper = ref(null)
 const modal = ref(null)
-const resultText = ref(null)
 const result = ref(null)
 const isDrawing = ref(false)
 const showModal = ref(false)
-const showResult = ref(false)
+const showRateModal = ref(false)
+const showInfoModal = ref(false)
 const currentNumber = ref(1)
 let shakeAnimation = null
 
@@ -295,53 +403,14 @@ onMounted(() => {
   }, '-=0.5')
 })
 
-// 籤條數據
+// 籤條數據 - 按照通用類機率分配 (陸軍92%, 海軍艦艇兵2%, 海軍陸戰隊兵6%)
 const lotteryData = [
-  {
-    branch: '陸軍',
-    unit: '步兵',
-    description: '恭喜！你將成為陸軍步兵，體驗最原始的軍旅生活，背負裝備行軍是家常便飯。'
-  },
-  {
-    branch: '陸軍',
-    unit: '裝甲兵',
-    description: '恭喜抽到裝甲兵！在戰車裡享受冷氣，但要小心被震到頭暈。'
-  },
-  {
-    branch: '陸軍',
-    unit: '砲兵',
-    description: '砲兵報到！準備好體驗震耳欲聾的砲聲，記得帶耳塞。'
-  },
-  {
-    branch: '海軍',
-    unit: '艦艇兵',
-    description: '歡迎加入海軍艦艇！出海就是你的日常，記得帶暈船藥。'
-  },
-  {
-    branch: '海軍',
-    unit: '陸戰隊',
-    description: '恭喜成為陸戰隊員！永遠忠誠，體能訓練會讓你終生難忘。'
-  },
-  {
-    branch: '海軍',
-    unit: '海軍陸戰隊兩棲偵搜',
-    description: '兩棲蛙人！最精銳的部隊，準備接受地獄般的訓練。'
-  },
-  {
-    branch: '空軍',
-    unit: '地勤',
-    description: '空軍地勤，在地面守護天空的戰鷹，工作環境相對舒適。'
-  },
-  {
-    branch: '空軍',
-    unit: '防砲',
-    description: '防空砲兵！守護天空的第一道防線，訓練紮實但相對輕鬆。'
-  },
-  {
-    branch: '空軍',
-    unit: '通資電',
-    description: '恭喜抽到通資電！科技兵種，學習通訊技術，冷氣房裡當兵。'
-  }
+  // 海軍艦艇兵 2個
+  ...Array(2).fill({ branch: '海軍艦艇兵' }),
+  // 海軍陸戰隊兵 6個
+  ...Array(6).fill({ branch: '海軍陸戰隊' }),
+  // 陸軍 92個
+  ...Array(92).fill({ branch: '陸軍' }),
 ]
 
 // 箱子晃動動畫
@@ -398,7 +467,6 @@ const drawLottery = () => {
         onComplete: () => {
           // 顯示 Modal
           showModal.value = true
-          showResult.value = true
           
           // Modal 彈出動畫
           setTimeout(() => {
@@ -408,23 +476,6 @@ const drawLottery = () => {
                 duration: 0.5,
                 ease: 'back.out(1.7)'
               })
-            }
-            
-            // 解籤說明動畫
-            if (resultText.value) {
-              gsap.fromTo(resultText.value,
-                {
-                  opacity: 0,
-                  y: 20
-                },
-                {
-                  opacity: 1,
-                  y: 0,
-                  duration: 0.8,
-                  ease: 'power2.out',
-                  delay: 0.3
-                }
-              );
             }
           }, 50)
           
@@ -459,7 +510,6 @@ const closeModal = () => {
     ease: 'back.in(1.7)',
     onComplete: () => {
       showModal.value = false
-      showResult.value = false
     }
   })
 }
