@@ -118,6 +118,21 @@
               {{ isDrawing ? '抽籤中...' : '點擊箱子開始抽籤' }}
             </p>
 
+            <!-- 役期切換 -->
+            <div class="mt-6 inline-flex w-full max-w-md rounded-lg bg-white p-1 shadow border border-gray-200">
+              <button
+                v-for="serviceType in serviceTypes"
+                :key="serviceType.key"
+                type="button"
+                :disabled="isDrawing"
+                @click="selectedServiceType = serviceType.key"
+                class="flex-1 rounded-md px-3 py-2 text-sm sm:text-base font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-60"
+                :class="selectedServiceType === serviceType.key ? 'bg-green-700 text-white shadow' : 'text-gray-700 hover:bg-gray-100'"
+              >
+                {{ serviceType.label }}
+              </button>
+            </div>
+
             <!-- 功能按鈕 -->
             <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 w-full max-w-md">
               <button
@@ -243,15 +258,16 @@
           <h2 class="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-4 sm:mb-6 text-center">
             📊 國軍兵科配賦中籤率
           </h2>
-          
+
           <!-- 表格 -->
           <div class="overflow-x-auto mb-4 sm:mb-6 -mx-4 sm:mx-0 px-4 sm:px-0">
-            <table class="w-full border-2 border-gray-800 min-w-[400px] sm:min-w-0">
+            <table class="w-full border-2 border-gray-800 min-w-[560px] sm:min-w-0">
               <thead>
                 <tr class="bg-gray-100">
                   <th class="border-2 border-gray-800 p-2 sm:p-3 text-center font-bold text-xs sm:text-sm lg:text-base" rowspan="2">
                     <div>軍種 / 類別</div>
                   </th>
+                  <th class="border-2 border-gray-800 p-2 sm:p-3 text-center font-bold text-xs sm:text-sm lg:text-base" rowspan="2">役期 / 出生年次</th>
                   <th class="border-2 border-gray-800 p-2 sm:p-3 text-center font-bold text-xs sm:text-sm lg:text-base" rowspan="2">陸軍</th>
                   <th class="border-2 border-gray-800 p-2 sm:p-3 text-center font-bold text-xs sm:text-sm lg:text-base" colspan="2">海軍</th>
                   <th class="border-2 border-gray-800 p-2 sm:p-3 text-center font-bold text-xs sm:text-sm lg:text-base" rowspan="2">空軍</th>
@@ -267,6 +283,7 @@
                     <div>第一類<br />航海類</div>
                   </td>
                   <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center bg-gray-300"></td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center bg-gray-300"></td>
                   <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center text-sm sm:text-lg lg:text-xl font-bold">100%</td>
                   <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center bg-gray-300"></td>
                   <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center bg-gray-300"></td>
@@ -278,15 +295,28 @@
                   <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center bg-gray-300"></td>
                   <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center bg-gray-300"></td>
                   <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center bg-gray-300"></td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center bg-gray-300"></td>
                   <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center text-sm sm:text-lg lg:text-xl font-bold">100%</td>
                 </tr>
                 <tr>
-                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center font-medium bg-gray-50 text-xs sm:text-sm lg:text-base">
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center font-medium bg-gray-50 text-xs sm:text-sm lg:text-base" rowspan="2">
                     <div>第三類<br />通用類</div>
                   </td>
-                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center text-sm sm:text-lg lg:text-xl font-bold">92%</td>
-                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center text-sm sm:text-lg lg:text-xl font-bold">2%</td>
-                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center text-sm sm:text-lg lg:text-xl font-bold">6%</td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 text-center text-xs sm:text-sm">
+                    軍事訓練役（4個月）<br />83年至93年次役男
+                  </td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center text-sm sm:text-lg lg:text-xl font-bold">93.7%</td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center bg-gray-300"></td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center text-sm sm:text-lg lg:text-xl font-bold">6.3%</td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center bg-gray-300"></td>
+                </tr>
+                <tr>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 text-center text-xs sm:text-sm">
+                    義務役（1年）<br />94年次以後役男
+                  </td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center text-sm sm:text-lg lg:text-xl font-bold">81.0%</td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center text-sm sm:text-lg lg:text-xl font-bold">7.2%</td>
+                  <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center text-sm sm:text-lg lg:text-xl font-bold">11.8%</td>
                   <td class="border-2 border-gray-800 p-2 sm:p-3 lg:p-4 text-center bg-gray-300"></td>
                 </tr>
               </tbody>
@@ -294,9 +324,8 @@
           </div>
           
           <p class="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-6 px-2 sm:px-0">
-            抽籤類別：請參考 <a href="https://military.taichung.gov.tw/TAW/Web/images/%E6%8A%BD%E7%B1%A4%E5%BE%B5%E6%9C%8D%E5%B8%B8%E5%82%99%E5%85%B5%E5%BD%B9%E6%89%80%E7%BF%92%E5%B0%88%E9%95%B7%E7%A7%91%E7%B3%BB%E6%89%80%E7%B5%84%E5%88%A5%E5%B0%8D%E7%85%A7%E8%A1%A8.pdf" target="_blank" class="text-blue-600 hover:underline">國軍兵員配賦類別說明</a>
-            <br />本表係依行政院核定「國軍 110 年兵員配賦計畫」彙辦理。
-            <br /><br />Tips: 若當場次無海軍艦艇兵，機率會轉移至陸軍(約94%)
+            通用類配賦比例（依出生年次）：請參考 <a href="https://soldier.ntpc.gov.tw/mt6330" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">新北市政府役政資訊</a>
+            <br />本表第三類依役期及出生年次分別標示配賦比例。
           </p>
           
           <button @click="showRateModal = false" 
@@ -372,11 +401,24 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import gsap from 'gsap'
 import Nav from './components/Nav.vue'
 import PageHeader from './components/PageHeader.vue'
 import AppFooter from './components/AppFooter.vue'
+
+const serviceTypes = [
+  {
+    key: 'militaryTraining',
+    label: '軍事訓練役（4個月）',
+    rates: { army: 93.7, navyShip: 0, marine: 6.3 }
+  },
+  {
+    key: 'oneYearService',
+    label: '義務役（1年）',
+    rates: { army: 81.0, navyShip: 7.2, marine: 11.8 }
+  }
+]
 
 const lotteryBox = ref(null)
 const instruction = ref(null)
@@ -388,7 +430,18 @@ const showModal = ref(false)
 const showRateModal = ref(false)
 const showInfoModal = ref(false)
 const currentNumber = ref(1)
+const selectedServiceType = ref('militaryTraining')
 let shakeAnimation = null
+
+const currentServiceType = computed(() => {
+  return serviceTypes.find((serviceType) => serviceType.key === selectedServiceType.value) || serviceTypes[0]
+})
+
+const currentLotteryData = computed(() => [
+  { branch: '陸軍', weight: currentServiceType.value.rates.army },
+  { branch: '海軍艦艇兵', weight: currentServiceType.value.rates.navyShip },
+  { branch: '海軍陸戰隊', weight: currentServiceType.value.rates.marine }
+].filter((item) => item.weight > 0))
 
 // 頁面進入動畫
 onMounted(() => {
@@ -403,15 +456,18 @@ onMounted(() => {
   }, '-=0.5')
 })
 
-// 籤條數據 - 按照通用類機率分配 (陸軍92%, 海軍艦艇兵2%, 海軍陸戰隊兵6%)
-const lotteryData = [
-  // 海軍艦艇兵 2個
-  ...Array(2).fill({ branch: '海軍艦艇兵' }),
-  // 海軍陸戰隊兵 6個
-  ...Array(6).fill({ branch: '海軍陸戰隊' }),
-  // 陸軍 92個
-  ...Array(92).fill({ branch: '陸軍' }),
-]
+// 依選擇的役期與通用類配賦比例進行加權抽籤。
+const getWeightedLotteryResult = () => {
+  const totalWeight = currentLotteryData.value.reduce((sum, item) => sum + item.weight, 0)
+  let randomValue = Math.random() * totalWeight
+
+  for (const item of currentLotteryData.value) {
+    randomValue -= item.weight
+    if (randomValue <= 0) return { branch: item.branch }
+  }
+
+  return { branch: currentLotteryData.value[0].branch }
+}
 
 // 箱子晃動動畫
 const startShake = () => {
@@ -445,9 +501,8 @@ const drawLottery = () => {
   isDrawing.value = true
   
   // 隨機選擇結果
-  const randomIndex = Math.floor(Math.random() * lotteryData.length)
-  currentNumber.value = randomIndex + 1
-  result.value = lotteryData[randomIndex]
+  currentNumber.value = Math.floor(Math.random() * 150) + 1
+  result.value = getWeightedLotteryResult()
   
   // 箱子晃動
   gsap.to(lotteryBox.value, {
