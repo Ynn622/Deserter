@@ -227,16 +227,24 @@
         </div>
 
         <!-- 按鈕區 -->
-        <div class="flex gap-4 justify-center">
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <button
+            type="button"
+            @click="shareResult"
+            class="flex-1 px-5 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors shadow-lg text-base lg:text-lg"
+          >
+            <font-awesome-icon icon="share-nodes" class="mr-2" />
+            分享結果
+          </button>
           <button
             @click="closeModal"
-            class="px-8 py-3 bg-gray-700 hover:bg-gray-600 text-white font-medium rounded-lg transition-colors shadow-lg text-lg"
+            class="flex-1 px-5 py-3 bg-gray-700 hover:bg-gray-600 text-white font-medium rounded-lg transition-colors shadow-lg text-base lg:text-lg"
           >
             關閉
           </button>
           <button
             @click="resetAndDraw"
-            class="px-8 py-3 bg-red-700 hover:bg-red-800 text-white font-medium rounded-lg transition-colors shadow-lg text-lg"
+            class="flex-1 px-5 py-3 bg-red-700 hover:bg-red-800 text-white font-medium rounded-lg transition-colors shadow-lg text-base lg:text-lg"
           >
             再抽一次
           </button>
@@ -403,6 +411,7 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue'
 import gsap from 'gsap'
+import Swal from 'sweetalert2'
 import Nav from './components/Nav.vue'
 import PageHeader from './components/PageHeader.vue'
 import AppFooter from './components/AppFooter.vue'
@@ -575,6 +584,41 @@ const resetAndDraw = () => {
   setTimeout(() => {
     drawLottery()
   }, 400)
+}
+
+const shareResult = async () => {
+  if (!result.value) return
+
+  const number = String(currentNumber.value).padStart(4, '0')
+  const shareText = `我在逃兵大陸選擇「${currentServiceType.value.label}」，抽中「${result.value.branch}」，籤號第 ${number} 號！`
+  const shareData = {
+    title: '逃兵大陸｜國軍抽籤結果',
+    text: shareText,
+    url: window.location.href
+  }
+
+  try {
+    if (navigator.share) {
+      await navigator.share(shareData)
+      return
+    }
+
+    await navigator.clipboard.writeText(`${shareText}\n${shareData.url}`)
+    await Swal.fire({
+      icon: 'success',
+      title: '抽籤結果已複製',
+      timer: 1500,
+      showConfirmButton: false
+    })
+  } catch (error) {
+    if (error.name === 'AbortError') return
+
+    await Swal.fire({
+      icon: 'info',
+      title: '分享功能暫時無法使用',
+      text: shareText
+    })
+  }
 }
 
 // 根據軍種返回顏色
