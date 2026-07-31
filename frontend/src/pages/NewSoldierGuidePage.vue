@@ -90,7 +90,7 @@
                         <p class="text-gray-600 leading-relaxed pl-6 md:pl-8 text-sm md:text-base" v-if="item.description">
                           {{ item.description }}
                         </p>
-                        
+
                         <!-- 子項目列表 -->
                         <div v-if="item.details" class="mt-2 md:mt-3 pl-6 md:pl-8 space-y-2">
                           <div
@@ -102,6 +102,13 @@
                               <span class="font-semibold text-green-600 text-xs md:text-sm flex-shrink-0">{{ detail.label }}</span>
                               <p class="text-gray-700 text-xs md:text-sm leading-relaxed">{{ detail.content }}</p>
                             </div>
+                          </div>
+                        </div>
+
+                        <div v-if="item.recommendation" class="mt-2 md:mt-3 pl-6 md:pl-8">
+                          <div class="bg-green-50 rounded-lg p-2 md:p-3 border-l-2 border-green-500">
+                            <p class="font-semibold text-green-800 text-xs md:text-sm mb-1">建議攜帶物品：</p>
+                            <p class="text-gray-700 text-xs md:text-sm leading-relaxed">{{ item.recommendation }}</p>
                           </div>
                         </div>
                         
@@ -185,26 +192,27 @@ const topics = [
       {
         title: '行李準備',
         description: '入營當天及隨身攜帶物品清單：',
+        recommendation: '行充、牙刷、牙膏、三合一沐浴、刮鬍刀、有線耳機（不能用無線）、手電筒、涼感噴霧',
         details: [
           {
             label: 'a.',
-            content: '穿球鞋、長褲、長袖（第一天等待發東西時很多蚊子）'
+            content: '🪪 徵集令、身分證、健保卡、私章（不要帶開戶用，直接去刻一個便宜的木頭章）、戶口名簿影本、最高學歷畢業證書影本、折抵役期證明（高中以上有修軍訓相關，都可以申請看看）'
           },
           {
             label: 'b.',
-            content: '帶一套便服（休假用）'
+            content: '👟 穿球鞋、不穿吊嘎＆拖鞋、輕便為主（入營後會發軍靴、布鞋、拖鞋）'
           },
           {
             label: 'c.',
-            content: '簡單電子手錶（不要有藍牙/GPS）'
+            content: '👕 帶一套便服（休假用）'
           },
           {
             label: 'd.',
-            content: '現金建議3000元內（可換些銅板）'
+            content: '💵 現金建議2000元內（可換些銅板）、悠遊卡（有些營區販賣機只能用悠遊卡）'
           },
           {
             label: 'e.',
-            content: '❌ 不要帶貴重物品、老鼠藥、電器（吹風機、電動刮鬍刀）、打火機、檳榔、色情/違禁刊物'
+            content: '⌚️ 手錶 or 電子錶（不要有藍牙/GPS）'
           }
         ],
         note: '禁帶物品若被查獲可能會受處分，務必留意。'
@@ -265,7 +273,7 @@ const topics = [
       },
       {
         title: '運動服裝',
-        description: '迷彩內衣＋運動短褲(冬天變成運動長褲)＋運動外套（有時不穿外套）。'
+        description: '迷彩內衣＋運動短褲(冬天變成運動長褲)。'
       },
       {
         title: '班頭',
@@ -316,10 +324,6 @@ const topics = [
         description: '統計搭乘或收放假專車的人員並收車資的人員。'
       },
       {
-        title: '洗衣委',
-        description: '統計洗衣袋數量並收洗衣費（有時由福委兼任）。'
-      },
-      {
         title: '中暑防治演練',
         description: '每日操課前演練：一人假裝中暑，班上弟兄要把他抬出降溫、脫襪、解開衣服並放冰枕。'
       },
@@ -332,16 +336,12 @@ const topics = [
         description: '單兵戰鬥教練，模擬實戰情況（砲擊、毒氣、火力交戰等），按單戰演練情境劇本。'
       },
       {
-        title: '快反（快速反應射擊）',
-        description: '新訓訓練項目：在掩體後方射擊，從125公尺處出發，需在105秒內完成並經過兩個掩體、在75公尺處九洞板快速臥倒、更換彈匣，並以臥射、跪射、站射三種姿勢各射12發（合計36發）；過程可能含故障排除、卡彈模擬等實戰場景。'
-      },
-      {
         title: '五百障礙',
         description: '項目有雙木欄、爬竿、板牆、高跳台、壕溝、獨木橋、低絆網，通常需要「全副武裝」進行。'
       },
       {
         title: '放夭八',
-        description: '禮拜五18:00放假離開營區，有加分才有的獎勵（有一些營區會無條件直接放）。'
+        description: '禮拜五18:00放假離開營區，有加分才有的獎勵（海陸通常會有）。'
       },
       {
         title: '洞八',
@@ -353,7 +353,7 @@ const topics = [
       },
       {
         title: '精神答數',
-        description: '走路的時候會列隊，班長會在前面喊精神答數，陸軍要說雄壯、威武、剛直、嚴肅等等。'
+        description: '走路的時候會列隊，班長會在前面喊精神答數，要說雄壯、威武、剛直、嚴肅...等等。'
       },
       {
         title: '出公差',
