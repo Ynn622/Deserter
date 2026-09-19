@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException, Query
 
 from services.troop_calendar import get_troop_calendar
+from util.taiwan_time import TaiwanTime
 
 
 router = APIRouter(prefix="/troop-calendar", tags=["入伍行事曆"])
@@ -11,6 +12,12 @@ def get_calendar(
     branch: str | None = Query(default=None, description="軍種"),
     schedule_id: str | None = Query(default=None, description="梯次資料 ID"),
 ):
+    print(
+        f"{TaiwanTime.string(ms=True)} | [TroopCalendar API] "
+        f"GET /troop-calendar｜branch={branch or '全部'}｜"
+        f"schedule_id={schedule_id or '未指定'}",
+        flush=True,
+    )
     try:
         payload = get_troop_calendar()
     except Exception as error:

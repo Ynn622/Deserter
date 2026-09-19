@@ -257,17 +257,21 @@
 
               <div class="mt-6 flex flex-col items-start justify-between gap-3 rounded-xl border border-black/5 bg-white/70 px-5 py-4 text-xs text-gray-500 sm:flex-row sm:items-center sm:text-sm lg:text-base">
                 <p>
-                  資料整理自新北市政府「役男大亨 ONLINE」，每日更新一次並由本站快取。
+                  以新北市政府「役男大亨 ONLINE」為主，並以臺北市政府兵役局訓練流路 PDF 補齊最新梯次與缺漏行程；每日更新一次。
                 </p>
-                <a
-                  :href="calendarData.source"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="shrink-0 font-bold text-green-800 underline decoration-green-800/30 underline-offset-4 hover:text-green-600"
-                >
-                  查看原始資料
-                  <font-awesome-icon :icon="['fas', 'arrow-up-right-from-square']" class="ml-1" />
-                </a>
+                <div class="flex shrink-0 flex-wrap gap-x-4 gap-y-2">
+                  <a
+                    v-for="source in calendarData.sources"
+                    :key="source.id"
+                    :href="source.url"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="font-bold text-green-800 underline decoration-green-800/30 underline-offset-4 hover:text-green-600"
+                  >
+                    {{ source.role === 'primary' ? '主要來源' : '輔助來源' }}
+                    <font-awesome-icon :icon="['fas', 'arrow-up-right-from-square']" class="ml-1" />
+                  </a>
+                </div>
               </div>
             </template>
 
