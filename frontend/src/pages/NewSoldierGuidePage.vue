@@ -9,13 +9,122 @@
         description="第一次入伍？別怕，這裡是你的軍旅求生指南！"
       />
 
-      <!-- 引導文字 -->
-      <section class="py-8 bg-white">
-        <div class="container mx-auto px-4">
-          <div class="max-w-3xl mx-auto bg-gray-50 border-l-4 border-green-800 p-4 lg:p-6 rounded shadow leading-8 text-gray-700 text-xs md:text-base">
-              每位新兵的入伍生活都是一場未知的冒險。<br />
-              這份《新兵求生手冊》收錄了在軍中最需要知道的四大重點，<br />
-              幫助你在菜鳥時期安然度過，甚至混出一片天。
+      <!-- 義務役入伍流程 -->
+      <section class="relative overflow-hidden bg-[#f3f0e7] py-12 lg:py-16">
+        <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-green-900/5"></div>
+        <div class="pointer-events-none absolute -bottom-32 -left-20 h-80 w-80 rounded-full border-[48px] border-green-900/5"></div>
+
+        <div class="container relative mx-auto px-4">
+          <div class="mx-auto max-w-3xl text-center">
+            <p class="mb-3 text-xs font-bold tracking-[0.32em] text-green-800">BEFORE ENLISTMENT</p>
+            <h2 class="text-2xl font-black tracking-tight text-gray-900 md:text-3xl lg:text-4xl">
+              入伍前，你會經過這三站
+            </h2>
+            <p class="mt-4 text-sm leading-7 text-gray-600 md:text-base">
+              完成兵籍調查、解除緩徵後，從體位判定到正式報到，先把每一步要做的事記起來。
+            </p>
+          </div>
+
+          <div class="relative mx-auto mt-10 max-w-6xl">
+            <!-- 桌面版串接線 -->
+            <div class="absolute left-[16.66%] right-[16.66%] top-8 hidden h-0.5 bg-green-900/20 md:block" aria-hidden="true"></div>
+            <!-- 手機版串接線 -->
+            <div class="absolute bottom-8 left-8 top-8 w-0.5 bg-green-900/20 md:hidden" aria-hidden="true"></div>
+
+            <ol class="relative grid gap-5 md:grid-cols-3 md:gap-6">
+              <li
+                v-for="step in enlistmentSteps"
+                :key="step.number"
+                ref="enlistmentItems"
+                class="enlistment-step relative grid grid-cols-[4rem_1fr] gap-4 md:flex md:flex-col"
+              >
+                <div
+                  class="relative z-10 flex h-16 w-16 items-center justify-center rounded-full border-4 border-[#f3f0e7] text-lg font-black shadow-md md:mx-auto"
+                  :class="step.featured ? 'bg-green-800 text-white' : 'bg-white text-green-900'"
+                >
+                  {{ step.number }}
+                </div>
+
+                <article
+                  class="rounded-2xl border p-5 shadow-sm transition-transform duration-300 hover:-translate-y-1 md:mt-5 md:min-h-[320px] md:flex-1 md:p-6"
+                  :class="step.featured ? 'border-green-800 bg-green-900 text-white shadow-green-950/15' : 'border-black/5 bg-white text-gray-800'"
+                >
+                  <div class="flex items-center gap-3">
+                    <span
+                      class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
+                      :class="step.featured ? 'bg-white/10 text-green-100' : 'bg-green-50 text-green-800'"
+                    >
+                      <font-awesome-icon :icon="step.icon" />
+                    </span>
+                    <div>
+                      <p
+                        class="text-[11px] font-bold tracking-[0.2em]"
+                        :class="step.featured ? 'text-green-200' : 'text-green-700'"
+                      >
+                        {{ step.eyebrow }}
+                      </p>
+                      <h3 class="mt-0.5 text-xl font-black">{{ step.title }}</h3>
+                    </div>
+                  </div>
+
+                  <p
+                    class="mt-4 text-sm leading-6"
+                    :class="step.featured ? 'text-green-50/90' : 'text-gray-600'"
+                  >
+                    {{ step.description }}
+                  </p>
+
+                  <div
+                    v-if="step.time"
+                    class="mt-4 inline-flex items-center gap-2 rounded-full bg-amber-50 px-3 py-1.5 text-xs font-bold text-amber-800 ring-1 ring-inset ring-amber-200"
+                  >
+                    <font-awesome-icon :icon="['fas', 'calendar-days']" />
+                    通常約為 {{ step.time }}
+                  </div>
+
+                  <ul class="mt-4 space-y-2.5">
+                    <li v-for="detail in step.details" :key="detail" class="flex items-start gap-2.5 text-sm leading-6">
+                      <font-awesome-icon
+                        :icon="['fas', 'circle-check']"
+                        class="mt-1 shrink-0"
+                        :class="step.featured ? 'text-green-300' : 'text-green-700'"
+                      />
+                      <span :class="step.featured ? 'text-green-50/90' : 'text-gray-700'">{{ detail }}</span>
+                    </li>
+                  </ul>
+
+                  <RouterLink
+                    v-if="step.route"
+                    :to="step.route"
+                    class="mt-5 inline-flex items-center gap-2 rounded-lg bg-green-800 px-4 py-2.5 text-sm font-bold text-white shadow-sm transition-colors hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2"
+                  >
+                    前往役男模擬抽籤
+                    <font-awesome-icon :icon="['fas', 'arrow-right']" />
+                  </RouterLink>
+
+                  <div v-if="step.featured" class="mt-5 rounded-xl border border-white/15 bg-white/10 p-3 text-xs leading-5 text-green-50">
+                    <span class="font-bold text-green-200">先記住：</span>
+                    簡訊多為提醒，正式報到時間與地點仍以紙本徵集令為準。
+                  </div>
+                </article>
+              </li>
+            </ol>
+          </div>
+
+          <div class="mx-auto mt-8 flex max-w-4xl flex-col items-center justify-between gap-3 rounded-xl border border-black/5 bg-white/60 px-4 py-3 text-xs text-gray-600 sm:flex-row sm:text-sm">
+            <p>
+              <font-awesome-icon :icon="['fas', 'circle-info']" class="mr-1.5 text-green-800" />
+              車馬費、簡訊與公所關懷小物會依縣市及場次不同，請以戶籍地公所通知為準。
+            </p>
+            <a
+              href="https://dca.moi.gov.tw/chaspx/Faq_Detail.aspx?id=258&web=84"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="shrink-0 font-bold text-green-800 underline decoration-green-800/30 underline-offset-4 hover:text-green-600"
+            >
+              查看役政司官方流程
+              <font-awesome-icon :icon="['fas', 'arrow-up-right-from-square']" class="ml-1" />
+            </a>
           </div>
         </div>
       </section>
@@ -141,13 +250,82 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Nav from './components/Nav.vue'
 import PageHeader from './components/PageHeader.vue'
 import AppFooter from './components/AppFooter.vue'
 
+gsap.registerPlugin(ScrollTrigger)
+
 const expandedIndex = ref(null)
+const enlistmentItems = ref([])
+let enlistmentAnimationContext
+
+const enlistmentSteps = [
+  {
+    number: '01',
+    eyebrow: '體位判定',
+    title: '兵役體檢',
+    icon: ['fas', 'stethoscope'],
+    time: '11–1 月',
+    description: '依徵兵檢查通知書，在指定時間前往指定醫院完成檢查；有傷病史時，記得主動說明並帶診斷資料。',
+    details: [
+      '攜帶徵兵檢查通知書與身分證，依通知內容準備照片等文件。',
+      '完成檢查後，由徵兵檢查會判定常備役、替代役、免役或體位未定。',
+      '部分縣市或場次會發約 100 元交通費，實際金額與領取方式以現場為準。'
+    ]
+  },
+  {
+    number: '02',
+    eyebrow: '軍種',
+    title: '役男抽籤',
+    icon: ['fas', 'ticket'],
+    time: '1–4 月',
+    description: '常備役體位會抽軍種、主要兵科；通常依通知到戶籍地區公所或指定場地辦理。',
+    details: [
+      '帶抽籤通知書、國民身分證與印章，原則上由本人到場。',
+      '無法到場可委託有行為能力的家屬代抽；未到場則可能由公所代抽。'
+    ],
+    route: '/lottery'
+  },
+  {
+    number: '03',
+    eyebrow: '正式報到',
+    title: '徵集入營',
+    icon: ['fas', 'person-military-rifle'],
+    description: '戶籍地公所原則上會在入營 10 日前送達徵集令，請依指定日期、時間與集合地點準時報到。',
+    details: [
+      '收到簡訊提醒後，核對徵集令上的入營日、集合地點與攜帶物品。',
+      '先備妥徵集令、身分證、私章、戶口名簿與存摺影本、學歷及役期折抵證明。',
+      '部分公所報到時會提供入營袋、電話卡或盥洗小物，各地內容不一。'
+    ],
+    featured: true
+  }
+]
+
+onMounted(() => {
+  enlistmentAnimationContext = gsap.context(() => {
+    enlistmentItems.value.forEach((item, index) => {
+      gsap.to(item, {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        delay: index * 0.2,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: item,
+          start: 'top 85%'
+        }
+      })
+    })
+  })
+})
+
+onUnmounted(() => {
+  enlistmentAnimationContext?.revert()
+})
 
 // GSAP 動畫鉤子函數
 const beforeEnter = (el) => {
@@ -454,5 +632,10 @@ const toggleTopic = (index) => {
 /* 確保過渡動畫流暢 */
 .transition-all {
   overflow: hidden;
+}
+
+.enlistment-step {
+  opacity: 0;
+  transform: translateX(-50px);
 }
 </style>
