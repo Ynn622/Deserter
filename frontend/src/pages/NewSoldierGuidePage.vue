@@ -130,116 +130,115 @@
       </section>
 
       <!-- 四大求生主題 -->
-      <section class="py-6 lg:py-10 bg-gradient-to-b from-gray-100 to-gray-200">
+      <section class="bg-gradient-to-b from-gray-100 to-gray-200 py-10 lg:py-16">
         <div class="container mx-auto px-4">
-          <h2 class="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6 lg:mb-10 text-gray-800">
-            四大求生主題
-          </h2>
-          
-          <div class="max-w-4xl mx-auto space-y-4">
-            <!-- 主題卡片 -->
-            <div
-              v-for="(topic, index) in topics"
-              :key="index"
-              class="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300"
-              :class="{ 'ring-2 ring-blue-500': expandedIndex === index }"
-            >
-              <!-- 標題區（可點擊） -->
+          <div class="mx-auto mb-8 max-w-2xl text-center lg:mb-12">
+            <p class="mb-2 text-xs font-black tracking-[0.24em] text-green-800 lg:text-sm">NEW SOLDIER SURVIVAL GUIDE</p>
+            <h2 class="text-2xl font-black text-gray-900 md:text-3xl lg:text-4xl">四大求生主題</h2>
+            <p class="mt-3 text-sm leading-7 text-gray-600 lg:text-base">
+              不必從頭讀到尾，直接選擇現在最需要的主題，快速找到答案。
+            </p>
+          </div>
+
+          <!-- 電腦版：固定主題目錄搭配單一內容閱讀區 -->
+          <div class="mx-auto hidden max-w-6xl items-start gap-6 lg:grid lg:grid-cols-[17rem_minmax(0,1fr)]">
+            <aside class="sticky top-24 space-y-3" aria-label="四大求生主題目錄">
               <button
-                @click="toggleTopic(index)"
-                class="w-full px-6 py-6 flex items-center gap-4 lg:gap-6 hover:bg-gray-50 cursor-pointer transition-colors text-left"
+                v-for="(topic, index) in topics"
+                :key="topic.title"
+                type="button"
+                class="group w-full rounded-2xl border p-4 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                :class="activeTopicIndex === index ? topicThemes[index].navActive : 'border-white/70 bg-white/80 text-gray-700'"
+                @click="selectTopic(index)"
               >
-                <!-- 圖標 -->
-                <div class="flex-shrink-0 w-16 h-16 bg-gray-800 rounded-lg flex items-center justify-center">
-                  <font-awesome-icon :icon="topic.icon" class="text-white text-3xl" />
-                </div>
-                
-                <!-- 文字內容 -->
-                <div class="flex-1">
-                  <h3 class="text-base md:text-lg lg:text-2xl font-bold text-gray-800 mb-1 lg:mb-2">
-                    {{ topic.title }}
-                  </h3>
-                  <p class="text-gray-600 text-xs md:text-sm lg:text-base">
-                    {{ topic.subtitle }}
-                  </p>
-                </div>
-                
-                <!-- 展開圖標 -->
-                <div class="flex-shrink-0">
-                  <font-awesome-icon
-                    :icon="['fas', 'chevron-down']"
-                    class="text-gray-400 text-xl transition-transform duration-300"
-                    :class="{ 'rotate-180': expandedIndex === index }"
-                  />
+                <div class="flex items-start gap-3">
+                  <span
+                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition"
+                    :class="activeTopicIndex === index ? 'bg-white/15 text-white' : topicThemes[index].icon"
+                  >
+                    <font-awesome-icon :icon="topic.icon" />
+                  </span>
+                  <span class="min-w-0">
+                    <span class="block text-[10px] font-black tracking-[0.18em] opacity-60">TOPIC {{ String(index + 1).padStart(2, '0') }}</span>
+                    <span class="mt-1 block text-base font-black leading-snug">{{ topic.title }}</span>
+                  </span>
                 </div>
               </button>
-              
-              <!-- 詳細內容區（可展開） -->
-              <transition
-                @before-enter="beforeEnter"
-                @enter="enter"
-                @leave="leave"
-                :css="false"
-              >
-                <div v-if="expandedIndex === index" class="border-t border-gray-200">
-                  <div class="px-4 py-6 md:px-6 md:py-8 lg:px-8 bg-gray-50">
-                    <!-- 內容列表 -->
-                    <div class="space-y-3 md:space-y-4">
-                      <div
-                        v-for="(item, itemIndex) in topic.content"
-                        :key="itemIndex"
-                        class="bg-white rounded-lg p-3 md:p-4 shadow-sm"
-                      >
-                        <h4 class="font-bold text-gray-800 mb-2 flex items-center gap-2">
-                          <span class="w-6 h-6 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm">
-                            {{ itemIndex + 1 }}
-                          </span>
-                          {{ item.title }}
-                        </h4>
-                        <p class="text-gray-600 leading-relaxed pl-6 md:pl-8 text-sm md:text-base" v-if="item.description">
-                          {{ item.description }}
-                        </p>
+            </aside>
 
-                        <!-- 子項目列表 -->
-                        <div v-if="item.details" class="mt-2 md:mt-3 pl-6 md:pl-8 space-y-2">
-                          <div
-                            v-for="(detail, detailIndex) in item.details"
-                            :key="detailIndex"
-                            class="bg-gray-50 rounded-lg p-2 md:p-3 border-l-2 border-green-400"
-                          >
-                            <div class="flex items-start gap-2">
-                              <span class="font-semibold text-green-600 text-xs md:text-sm flex-shrink-0">{{ detail.label }}</span>
-                              <p class="text-gray-700 text-xs md:text-sm leading-relaxed">{{ detail.content }}</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div v-if="item.recommendation" class="mt-2 md:mt-3 pl-6 md:pl-8">
-                          <div class="bg-green-50 rounded-lg p-2 md:p-3 border-l-2 border-green-500">
-                            <p class="font-semibold text-green-800 text-xs md:text-sm mb-1">建議攜帶物品：</p>
-                            <p class="text-gray-700 text-xs md:text-sm leading-relaxed">{{ item.recommendation }}</p>
-                          </div>
-                        </div>
-                        
-                        <!-- 提示訊息 -->
-                        <div v-if="item.note" class="mt-2 md:mt-3 pl-6 md:pl-8">
-                          <div class="bg-yellow-50 border-l-2 border-yellow-400 rounded p-2">
-                            <p class="text-yellow-800 text-xs md:text-sm">💡 {{ item.note }}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <!-- 底部提示 -->
-                    <div class="mt-4 md:mt-6 pt-3 md:pt-4 border-t border-gray-300">
-                      <p class="text-xs md:text-sm text-gray-500 text-center italic">
-                        點擊其他主題查看更多內容
+            <Transition name="topic-switch" mode="out-in">
+              <article :key="activeTopicIndex" class="overflow-hidden rounded-3xl border border-white/80 bg-gray-50 shadow-xl shadow-gray-900/5">
+                <header class="border-b border-gray-200 bg-white px-6 py-7 xl:px-8 xl:py-8">
+                  <div class="flex items-start gap-4">
+                    <span class="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl text-xl" :class="topicThemes[activeTopicIndex].icon">
+                      <font-awesome-icon :icon="topics[activeTopicIndex].icon" />
+                    </span>
+                    <div>
+                      <p class="text-xs font-black tracking-[0.2em]" :class="topicThemes[activeTopicIndex].eyebrow">
+                        TOPIC {{ String(activeTopicIndex + 1).padStart(2, '0') }}
                       </p>
+                      <h3 class="mt-1 text-2xl font-black text-gray-900 xl:text-3xl">{{ topics[activeTopicIndex].title }}</h3>
+                      <p class="mt-2 text-sm leading-7 text-gray-600 xl:text-base">{{ topics[activeTopicIndex].subtitle }}</p>
                     </div>
                   </div>
+                </header>
+                <div class="p-6 xl:p-8">
+                  <NewSoldierTopicContent :topic="topics[activeTopicIndex]" :topic-index="activeTopicIndex" />
                 </div>
-              </transition>
-            </div>
+              </article>
+            </Transition>
+          </div>
+
+          <!-- 手機版：保留收合操作，展開後套用各主題專屬版型 -->
+          <div class="mx-auto max-w-3xl space-y-3 lg:hidden">
+            <article
+              v-for="(topic, index) in topics"
+              :key="topic.title"
+              class="overflow-hidden rounded-2xl border border-white/80 bg-white shadow-sm"
+            >
+              <button
+                type="button"
+                class="flex w-full items-center gap-3 p-4 text-left sm:p-5"
+                :aria-expanded="mobileExpandedIndex === index"
+                @click="toggleMobileTopic(index)"
+              >
+                <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl" :class="topicThemes[index].icon">
+                  <font-awesome-icon :icon="topic.icon" />
+                </span>
+                <span class="min-w-0 flex-1">
+                  <span class="block text-[10px] font-black tracking-[0.16em] text-gray-400">TOPIC {{ String(index + 1).padStart(2, '0') }}</span>
+                  <span class="mt-0.5 block text-base font-black text-gray-900 sm:text-lg">{{ topic.title }}</span>
+                  <span class="mt-1 block text-xs leading-5 text-gray-500 sm:text-sm">{{ topic.subtitle }}</span>
+                </span>
+                <font-awesome-icon
+                  :icon="['fas', 'chevron-down']"
+                  class="shrink-0 text-gray-400 transition-transform duration-200"
+                  :class="{ 'rotate-180': mobileExpandedIndex === index }"
+                />
+              </button>
+
+              <Transition name="mobile-topic">
+                <div v-if="mobileExpandedIndex === index" class="border-t border-gray-100 bg-gray-50 p-4 sm:p-5">
+                  <NewSoldierTopicContent :topic="topic" :topic-index="index" />
+                </div>
+              </Transition>
+            </article>
+          </div>
+
+          <div class="mx-auto mt-8 flex max-w-6xl flex-col items-start justify-between gap-3 rounded-xl border border-gray-300 bg-white/70 px-4 py-3 text-xs text-gray-600 sm:flex-row sm:items-center sm:px-5 sm:text-sm">
+            <p class="flex items-center gap-2">
+              <font-awesome-icon :icon="['fas', 'book-open']" class="text-green-800" />
+              四大求生主題內容參考自「國軍英雄補給站－新兵入伍指南」。
+            </p>
+            <a
+              href="https://armydealer.waca.tw/blogs"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="shrink-0 font-bold text-green-800 underline decoration-green-800/30 underline-offset-4 hover:text-green-600"
+            >
+              查看資料來源
+              <font-awesome-icon :icon="['fas', 'arrow-up-right-from-square']" class="ml-1" />
+            </a>
           </div>
         </div>
       </section>
@@ -256,12 +255,45 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Nav from './components/Nav.vue'
 import PageHeader from './components/PageHeader.vue'
 import AppFooter from './components/AppFooter.vue'
+import NewSoldierTopicContent from './components/NewSoldierTopicContent.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const expandedIndex = ref(null)
+const activeTopicIndex = ref(0)
+const mobileExpandedIndex = ref(0)
 const enlistmentItems = ref([])
 let enlistmentAnimationContext
+
+const topicThemes = [
+  {
+    navActive: 'border-emerald-900 bg-emerald-900 text-white shadow-lg',
+    icon: 'bg-emerald-100 text-emerald-800',
+    eyebrow: 'text-emerald-700'
+  },
+  {
+    navActive: 'border-slate-800 bg-slate-800 text-white shadow-lg',
+    icon: 'bg-slate-200 text-slate-800',
+    eyebrow: 'text-slate-700'
+  },
+  {
+    navActive: 'border-stone-800 bg-stone-800 text-white shadow-lg',
+    icon: 'bg-stone-200 text-stone-800',
+    eyebrow: 'text-stone-700'
+  },
+  {
+    navActive: 'border-green-800 bg-green-800 text-white shadow-lg',
+    icon: 'bg-green-100 text-green-800',
+    eyebrow: 'text-green-700'
+  }
+]
+
+const selectTopic = index => {
+  activeTopicIndex.value = index
+}
+
+const toggleMobileTopic = index => {
+  mobileExpandedIndex.value = mobileExpandedIndex.value === index ? null : index
+}
 
 const enlistmentSteps = [
   {
@@ -326,35 +358,6 @@ onMounted(() => {
 onUnmounted(() => {
   enlistmentAnimationContext?.revert()
 })
-
-// GSAP 動畫鉤子函數
-const beforeEnter = (el) => {
-  gsap.set(el, {
-    height: 0,
-    opacity: 0,
-    overflow: 'hidden'
-  })
-}
-
-const enter = (el, done) => {
-  gsap.to(el, {
-    height: 'auto',
-    opacity: 1,
-    duration: 0.4,
-    ease: 'power2.out',
-    onComplete: done
-  })
-}
-
-const leave = (el, done) => {
-  gsap.to(el, {
-    height: 0,
-    opacity: 0,
-    duration: 0.3,
-    ease: 'power2.in',
-    onComplete: done
-  })
-}
 
 // 四大主題資料
 const topics = [
@@ -622,20 +625,26 @@ const topics = [
   },
 ]
 
-// 切換展開/收合
-const toggleTopic = (index) => {
-  expandedIndex.value = expandedIndex.value === index ? null : index
-}
 </script>
 
 <style scoped>
-/* 確保過渡動畫流暢 */
-.transition-all {
-  overflow: hidden;
-}
-
 .enlistment-step {
   opacity: 0;
   transform: translateX(-50px);
+}
+
+.topic-switch-enter-active,
+.topic-switch-leave-active,
+.mobile-topic-enter-active,
+.mobile-topic-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.topic-switch-enter-from,
+.topic-switch-leave-to,
+.mobile-topic-enter-from,
+.mobile-topic-leave-to {
+  opacity: 0;
+  transform: translateY(8px);
 }
 </style>
