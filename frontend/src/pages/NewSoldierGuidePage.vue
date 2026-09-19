@@ -365,81 +365,186 @@ const topics = [
     icon: ['fas', 'bell'],
     title: '入伍前後注意事項',
     subtitle: '入伍要帶什麼？手機能不能帶？完整懶人包一次搞懂。',
+    groups: [
+      {
+        id: 'procedures',
+        title: '入營前手續',
+        description: '先處理好報到、交通與個人狀態。',
+        icon: ['fas', 'clipboard-check']
+      },
+      {
+        id: 'packing',
+        title: '文件與行李',
+        description: '先確認必帶文件，再依個人需要精簡打包。',
+        icon: ['fas', 'suitcase'],
+        type: 'packing'
+      },
+      {
+        id: 'rules',
+        title: '營區規定',
+        description: '手機、洗衣與入營檢查等常見規範。',
+        icon: ['fas', 'shield-halved']
+      }
+    ],
     content: [
       {
         title: '轉出健保',
-        description: '帶徵集令影本，向原健保單位辦理「轉出」手續（轉出日為入營前一天）。'
+        description: '帶徵集令影本，向原健保單位辦理「轉出」手續（轉出日為入營前一天）。',
+        group: 'procedures'
       },
       {
-        title: '行李準備',
-        description: '入營當天及隨身攜帶物品清單：',
-        recommendation: '行充、牙刷、牙膏、三合一沐浴、刮鬍刀、有線耳機（不能用無線）、手電筒、涼感噴霧',
-        details: [
-          {
-            label: 'a.',
-            content: '🪪 徵集令、身分證、健保卡、私章（不要帶開戶用，直接去刻一個便宜的木頭章）、戶口名簿影本、最高學歷畢業證書影本、折抵役期證明（高中以上有修軍訓相關，都可以申請看看）'
-          },
-          {
-            label: 'b.',
-            content: '👟 穿球鞋、不穿吊嘎＆拖鞋、輕便為主（入營後會發軍靴、布鞋、拖鞋）'
-          },
-          {
-            label: 'c.',
-            content: '👕 帶一套便服（休假用）'
-          },
-          {
-            label: 'd.',
-            content: '💵 現金建議2000元內（可換些銅板）、悠遊卡（有些營區販賣機只能用悠遊卡）'
-          },
-          {
-            label: 'e.',
-            content: '⌚️ 手錶 or 電子錶（不要有藍牙/GPS）'
-          }
-        ],
-        note: '禁帶物品若被查獲可能會受處分，務必留意。'
+        title: '徵集令正本',
+        description: '入伍報到驗證使用，請依徵集令指定時間與地點攜帶正本報到。',
+        group: 'packing',
+        packingType: 'required',
+        icon: ['fas', 'file-lines']
       },
       {
-        title: '藥品攜帶',
-        details: [
-          {
-            label: 'a.',
-            content: '一般藥物：統一保管，需要時向幹部領取。'
-          },
-          {
-            label: 'b.',
-            content: '特殊用藥（如氣喘噴劑）：可報備後自行保留。'
-          }
-        ]
+        title: '身分證正本',
+        description: '報到時核對身分使用。',
+        group: 'packing',
+        packingType: 'required',
+        icon: ['fas', 'address-card']
+      },
+      {
+        title: '健保卡',
+        description: '入營後如需就醫或轉診時使用。',
+        group: 'packing',
+        packingType: 'required',
+        icon: ['fas', 'id-card']
+      },
+      {
+        title: '私章',
+        description: '辦理營內資料使用，建議另刻一顆一般木頭章，不要攜帶重要用途印章。',
+        group: 'packing',
+        packingType: 'required',
+        icon: ['fas', 'stamp']
+      },
+      {
+        title: '薪餉帳戶存摺影本',
+        description: '準備指定金融機構的存摺封面影本，實際可使用銀行以徵集令或公所通知為準。',
+        group: 'packing',
+        packingType: 'required',
+        icon: ['fas', 'building-columns']
+      },
+      {
+        title: '戶口名簿影本',
+        description: '填寫基本資料時使用。',
+        group: 'packing',
+        packingType: 'required',
+        icon: ['fas', 'people-roof']
+      },
+      {
+        title: '最高學歷證明影本',
+        description: '作為最高學歷證明。',
+        group: 'packing',
+        packingType: 'required',
+        icon: ['fas', 'graduation-cap']
+      },
+      {
+        title: '役期折抵文件',
+        description: '高中以上有修軍訓相關或打靶者，可以回母校教務處/軍訓室申請文件。',
+        group: 'packing',
+        packingType: 'required',
+        icon: ['fas', 'graduation-cap']
+      },
+      {
+        title: '特殊醫療用品與證明',
+        description: '有固定用藥或特殊病史者，攜帶藥品、處方箋或診斷證明並主動向幹部報備。',
+        group: 'packing',
+        packingType: 'recommended',
+        icon: ['fas', 'prescription-bottle-medical']
+      },
+      {
+        title: '盥洗用品',
+        description: '牙刷、牙膏、三合一沐浴用品、手動刮鬍刀。',
+        group: 'packing',
+        packingType: 'recommended',
+        icon: ['fas', 'pump-soap']
+      },
+      {
+        title: '少量現金與電子票證',
+        description: '現金建議控制在 2,000～3,000 元內並準備零錢；可帶悠遊卡等電子票證。',
+        group: 'packing',
+        packingType: 'recommended',
+        icon: ['fas', 'wallet']
+      },
+      {
+        title: '手錶',
+        description: '以無藍牙、GPS 或拍照功能的簡單電子錶為主。',
+        group: 'packing',
+        packingType: 'recommended',
+        icon: ['fas', 'clock']
+      },
+      {
+        title: '休假便服',
+        description: '準備一套輕便衣物，供休假或離營時替換。',
+        group: 'packing',
+        packingType: 'recommended',
+        icon: ['fas', 'shirt']
+      },
+      {
+        title: '手機配件',
+        description: '行動電源、有線耳機。',
+        group: 'packing',
+        packingType: 'recommended',
+        icon: ['fas', 'battery-full']
       },
       {
         title: '剪髮建議',
-        description: '髮型統一剪3mm，可入營後再由部隊處理。前幾天先剪一樣要給髮婆再剃一次。'
+        description: '髮型統一剪3mm，可入營後再由部隊處理。前幾天先剪一樣要給髮婆再剃一次。',
+        group: 'procedures'
       },
       {
         title: '手機相關',
         description: '可帶智慧型手機（中國品牌不行）。手機入營後統一保管，需要安裝MDM程式才能使用。',
+        group: 'rules',
         note: '無提供充電，建議自備行動電源。'
       },
       {
-        title: '眼鏡建議',
-        description: '不要只戴隱形眼鏡，建議配戴鏡框眼鏡＋眼鏡勾，另準備1副備用眼鏡。'
+        title: '備用眼鏡',
+        description: '不要只戴隱形眼鏡；建議配戴鏡框眼鏡、加裝眼鏡勾，再準備一副備用眼鏡。',
+        group: 'packing',
+        packingType: 'recommended',
+        icon: ['fas', 'glasses']
+      },
+      {
+        title: '其他實用小物',
+        description: '可依季節與個人需要準備手電筒、涼感噴霧、防蚊用品或簡單文具。',
+        group: 'packing',
+        packingType: 'recommended',
+        icon: ['fas', 'toolbox']
       },
       {
         title: '衣物清洗',
-        description: '每日由委外廠商送洗衣物，費用另計（入營後幹部會說明）。'
+        description: '每日由委外廠商送洗衣物，費用另計（入營後幹部會說明）。',
+        group: 'rules'
       },
       {
-        title: '懇親會通知',
-        description: '新訓中心會寄信通知家屬懇親會時間與聯絡方式，當天可以休假。'
+        title: '懇親會',
+        description: '由新訓單位公布懇親日期（通常為入伍第二周的週六）、會客時間與方式；通常會在懇親會及離營教育後接續懇親假。家屬請以部隊通知的時間、地點與入營規定為準。',
+        group: 'procedures'
       },
       {
         title: '入營尿檢須知',
         description: '配合毒品防制作業，入營後實施尿液篩檢。',
+        group: 'rules',
         note: '若入營前有服藥，記得帶「處方箋或診斷證明」，避免誤會。'
       },
       {
-        title: '交通方式',
-        description: '可以自費搭新兵福利委員會安排的遊覽車，接駁營區↔火車站/高鐵站。'
+        title: '入伍當日交通方式',
+        description: '前往徵集令指定的集合地點即可，區公所會負責在入伍日將役男送達營區。後續休假交通依營區規定辦理，部分單位可能安排專車前往指定區域。',
+        group: 'procedures'
+      },
+      {
+        title: '入營穿著',
+        description: '不穿吊嘎與拖鞋，整體以輕便為主；入營後會發軍靴、布鞋及拖鞋。',
+        group: 'rules'
+      },
+      {
+        title: '禁止攜帶物品',
+        description: '禁止攜帶具藍牙或資料傳輸功能的設備，以及撲克牌、骰子等賭博用具；若查獲違禁物品，可能會受處分。',
+        group: 'rules'
       }
     ]
   },
@@ -450,95 +555,113 @@ const topics = [
     content: [
       {
         title: '整齊服裝',
-        description: '穿全套野戰迷彩衣和S腰帶，不戴鋼盔，頭上戴小帽。'
+        description: '穿全套野戰迷彩衣和S腰帶，不戴鋼盔，頭上戴小帽。',
+        category: '服裝裝備'
       },
       {
         title: '運動服裝',
-        description: '迷彩內衣＋運動短褲(冬天變成運動長褲)。'
+        description: '迷彩內衣＋運動短褲(冬天變成運動長褲)。',
+        category: '服裝裝備'
       },
       {
         title: '班頭',
-        description: '一個班12人照身高排，通常最高的會當班頭，負責清查班上人數、收錢等很多雜事。班頭有事會變成班二代理。'
+        description: '一個班12人照身高排，通常最高的會當班頭，負責清查班上人數、收錢等很多雜事。班頭有事會變成班二代理。',
+        category: '編組勤務'
       },
       {
         title: '置板凳',
-        description: '把板凳打開放在身體後方，放好後不能起身，須等班長說「好」才能起身。'
+        description: '把板凳打開放在身體後方，放好後不能起身，須等班長說「好」才能起身。',
+        category: '動作口令'
       },
       {
         title: '回上一動',
-        description: '返回到上一個動作或姿勢。'
-      },
-      {
-        title: '打飯班',
-        description: '負責抬餐桶並幫大家裝飯，會在快要午餐及晚餐時間提早下課去餐廳。'
+        description: '返回到上一個動作或姿勢。',
+        category: '動作口令'
       },
       {
         title: '營站',
-        description: '營區內販賣衣物、生活用品的固定販賣處（類似高中福利社）。'
+        description: '營區內販賣衣物、生活用品的固定販賣處（類似高中福利社）。',
+        category: '營區生活'
       },
       {
         title: '小蜜蜂',
-        description: '在營區裡移動販賣的車輛（如麵包車、小發財車、機車），賣餅乾、涼水、肉包、關東煮、肉粽等。'
+        description: '在營區裡移動販賣的車輛（如麵包車、小發財車、機車），賣餅乾、涼水、肉包、關東煮、肉粽等。',
+        category: '營區生活'
       },
       {
         title: '打飯',
-        description: '拿餐盤裝飯的動作。'
+        description: '拿餐盤裝飯的動作。',
+        category: '動作口令'
       },
       {
         title: '水壺打滿水',
-        description: '指掛在S腰帶後方的水壺要裝滿水；裝滿時很重，走路會晃動。'
+        description: '指掛在S腰帶後方的水壺要裝滿水；裝滿時很重，走路會晃動。',
+        category: '服裝裝備'
       },
       {
         title: 'S腰帶',
-        description: '綁在野戰迷彩上的卡扣式腰帶，寬約5.5cm，主要用來掛水壺。'
+        description: '綁在野戰迷彩上的卡扣式腰帶，寬約5.5cm，主要用來掛水壺。',
+        category: '服裝裝備'
       },
       {
         title: '小帽',
-        description: '有國徽的迷彩小帽（賣場有賣可以參考圖片）。'
+        description: '有軍徽的迷彩小帽。',
+        category: '服裝裝備'
       },
       {
         title: '福委',
-        description: '負責收取新訓各種費用或協助連上行政事務，類似總務股長。'
+        description: '負責收取新訓各種費用或協助連上行政事務，類似總務股長。',
+        category: '編組勤務'
       },
       {
         title: '車委',
-        description: '統計搭乘或收放假專車的人員並收車資的人員。'
+        description: '統計搭乘或收放假專車的人員並收車資的人員。',
+        category: '編組勤務'
       },
       {
         title: '中暑防治演練',
-        description: '每日操課前演練：一人假裝中暑，班上弟兄要把他抬出降溫、脫襪、解開衣服並放冰枕。'
+        description: '每日操課前演練：一人假裝中暑，班上弟兄要把他抬出降溫、脫襪、解開衣服並放冰枕。',
+        category: '訓練課程'
       },
       {
         title: '喝水小卡',
-        description: '預防中暑用的飲水紀錄卡；固定時段喝水後需簽名，之後交給班長檢查。'
+        description: '預防中暑用的飲水紀錄卡；固定時段喝水後需簽名，之後交給班長檢查。',
+        category: '訓練課程'
       },
       {
         title: '單戰',
-        description: '單兵戰鬥教練，模擬實戰情況（砲擊、毒氣、火力交戰等），按單戰演練情境劇本。'
+        description: '單兵戰鬥教練，模擬實戰情況（砲擊、毒氣、火力交戰等），按單戰演練情境劇本。',
+        category: '訓練課程'
       },
       {
         title: '五百障礙',
-        description: '項目有雙木欄、爬竿、板牆、高跳台、壕溝、獨木橋、低絆網，通常需要「全副武裝」進行。'
+        description: '項目有雙木欄、爬竿、板牆、高跳台、壕溝、獨木橋、低絆網，通常需要「全副武裝」進行。',
+        category: '訓練課程'
       },
       {
         title: '放夭八',
-        description: '禮拜五18:00放假離開營區，有加分才有的獎勵（海陸通常會有）。'
+        description: '禮拜五18:00放假離開營區，有加分才有的獎勵（海陸通常會有）。',
+        category: '營區生活'
       },
       {
         title: '洞八',
-        description: '禮拜六8:00放假離開營區（通常都是這個）。'
+        description: '禮拜六8:00放假離開營區（通常都是這個）。',
+        category: '營區生活'
       },
       {
         title: '莒光課',
-        description: '每個禮拜會有一天要去中山室或是餐廳看「莒光園地」。'
+        description: '每個禮拜會有一天要去中山室或是餐廳看「莒光園地」。',
+        category: '訓練課程'
       },
       {
         title: '精神答數',
-        description: '走路的時候會列隊，班長會在前面喊精神答數，要說雄壯、威武、剛直、嚴肅...等等。'
+        description: '走路的時候會列隊，班長會在前面喊精神答數，要說雄壯、威武、剛直、嚴肅...等等。',
+        category: '動作口令'
       },
       {
         title: '出公差',
-        description: '長官委託的額外事情，例如搬東西、修水電、刷油漆、做木工、跑腿等各類雜事，完成了會有獎勵。'
+        description: '長官委託的額外事情，例如搬東西、修水電、刷油漆、做木工、跑腿等各類雜事，完成了會有獎勵。',
+        category: '編組勤務'
       }
     ]
   },

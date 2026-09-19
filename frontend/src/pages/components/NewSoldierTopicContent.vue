@@ -13,7 +13,38 @@
           </div>
         </div>
 
-        <div class="grid gap-4 md:grid-cols-2">
+        <div v-if="group.type === 'packing'" class="space-y-6">
+          <section v-for="section in packingSections(group.items)" :key="section.type">
+            <div class="mb-3 flex items-center justify-between gap-3">
+              <h4 class="flex items-center gap-2 text-sm font-black lg:text-base" :class="section.titleClass">
+                <font-awesome-icon :icon="section.icon" />
+                {{ section.title }}
+              </h4>
+              <span class="text-xs text-gray-400">{{ section.items.length }} 項</span>
+            </div>
+
+            <div class="grid gap-3 sm:grid-cols-2">
+              <article
+                v-for="item in section.items"
+                :key="item.title"
+                class="rounded-2xl border bg-white p-4 shadow-sm"
+                :class="section.cardClass"
+              >
+                <div class="flex items-start gap-3">
+                  <span class="flex h-7 w-7 sm:h-9 sm:w-9 shrink-0 items-center justify-center rounded-xl" :class="section.iconClass">
+                    <font-awesome-icon :icon="item.icon || section.icon" />
+                  </span>
+                  <div>
+                    <h5 class="font-black text-gray-900 lg:text-base">{{ item.title }}</h5>
+                    <p class="mt-1 text-xs leading-6 text-gray-600 lg:text-sm">{{ item.description }}</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+        </div>
+
+        <div v-else class="grid gap-4 md:grid-cols-2">
           <article
             v-for="item in group.items"
             :key="item.title"
@@ -24,7 +55,7 @@
               <font-awesome-icon :icon="['fas', 'circle-check']" class="text-emerald-700" />
               {{ item.title }}
             </h4>
-            <p v-if="item.description" class="mt-3 text-sm leading-7 text-gray-600 lg:text-base">
+            <p v-if="item.description" class="mt-2 text-sm leading-7 text-gray-600 lg:text-base">
               {{ item.description }}
             </p>
 
@@ -44,7 +75,7 @@
               <p class="mt-1 text-sm leading-6 text-gray-700">{{ item.recommendation }}</p>
             </div>
 
-            <div v-if="item.note" class="mt-4 flex gap-2 rounded-xl bg-amber-50 p-3 text-sm leading-6 text-amber-900">
+            <div v-if="item.note" class="mt-3 flex gap-2 rounded-xl bg-amber-50 p-2 text-sm leading-6 text-amber-900">
               <font-awesome-icon :icon="['fas', 'triangle-exclamation']" class="mt-1 shrink-0 text-amber-600" />
               <p>{{ item.note }}</p>
             </div>
@@ -87,15 +118,15 @@
         <article
           v-for="item in filteredGlossaryItems"
           :key="item.title"
-          class="rounded-2xl border border-gray-200 bg-white p-5 transition hover:border-slate-400 hover:shadow-md"
+          class="rounded-2xl border border-gray-200 bg-white p-4 transition hover:border-slate-400 hover:shadow-md"
         >
           <div class="flex items-start justify-between gap-3">
             <h3 class="text-base font-black text-gray-900 lg:text-lg">{{ item.title }}</h3>
-            <span class="shrink-0 rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-bold text-slate-600 lg:text-xs">
-              {{ glossaryCategory(item.title) }}
+            <span class="shrink-0 rounded-full bg-slate-100 px-2.5 py-1 text-[9px] font-bold text-slate-600 lg:text-xs">
+              {{ item.category }}
             </span>
           </div>
-          <p class="mt-2 text-sm leading-7 text-gray-600 lg:text-base">{{ item.description }}</p>
+          <p class="mt-1 sm:mt-2 text-sm leading-7 text-gray-600 lg:text-base">{{ item.description }}</p>
         </article>
       </div>
 
@@ -175,54 +206,44 @@ const props = defineProps({
 const searchTerm = ref('')
 const activeGlossaryCategory = ref('全部')
 
-const preparationGroupDefinitions = [
-  {
-    title: '入營前手續',
-    description: '先處理好報到、交通與個人狀態。',
-    icon: ['fas', 'clipboard-check'],
-    items: ['轉出健保', '剪髮建議', '懇親會通知', '交通方式']
-  },
-  {
-    title: '文件與行李',
-    description: '證件、生活用品與個人藥物一次確認。',
-    icon: ['fas', 'suitcase'],
-    items: ['行李準備', '藥品攜帶', '眼鏡建議']
-  },
-  {
-    title: '營區規定',
-    description: '手機、洗衣與入營檢查等常見規範。',
-    icon: ['fas', 'shield-halved'],
-    items: ['手機相關', '衣物清洗', '入營尿檢須知']
-  }
-]
-
 const preparationGroups = computed(() =>
-  preparationGroupDefinitions.map(group => ({
+  (props.topic.groups || []).map(group => ({
     ...group,
-    items: group.items
-      .map(title => props.topic.content.find(item => item.title === title))
-      .filter(Boolean)
+    items: props.topic.content.filter(item => item.group === group.id)
   }))
 )
 
-const glossaryDefinitions = [
-  { name: '服裝裝備', items: ['整齊服裝', '運動服裝', '水壺打滿水', 'S腰帶', '小帽'] },
-  { name: '編組勤務', items: ['班頭', '打飯班', '福委', '車委', '出公差'] },
-  { name: '動作口令', items: ['置板凳', '回上一動', '打飯', '精神答數'] },
-  { name: '訓練課程', items: ['中暑防治演練', '喝水小卡', '單戰', '五百障礙', '莒光課'] },
-  { name: '營區生活', items: ['營站', '小蜜蜂', '放夭八', '洞八'] }
+const packingSections = items => [
+  {
+    type: 'required',
+    title: '必帶',
+    icon: ['fas', 'circle-exclamation'],
+    titleClass: 'text-rose-700',
+    cardClass: 'border-rose-100',
+    iconClass: 'bg-rose-50 text-rose-700',
+    items: items.filter(item => item.packingType === 'required')
+  },
+  {
+    type: 'recommended',
+    title: '建議攜帶',
+    icon: ['fas', 'thumbs-up'],
+    titleClass: 'text-emerald-700',
+    cardClass: 'border-emerald-100',
+    iconClass: 'bg-emerald-50 text-emerald-700',
+    items: items.filter(item => item.packingType === 'recommended')
+  }
 ]
 
-const glossaryCategoryNames = ['全部', ...glossaryDefinitions.map(category => category.name)]
-
-const glossaryCategory = title =>
-  glossaryDefinitions.find(category => category.items.includes(title))?.name || '其他'
+const glossaryCategoryNames = computed(() => [
+  '全部',
+  ...new Set(props.topic.content.map(item => item.category).filter(Boolean))
+])
 
 const filteredGlossaryItems = computed(() => {
   const keyword = searchTerm.value.toLowerCase()
   return props.topic.content.filter(item => {
     const matchesCategory = activeGlossaryCategory.value === '全部'
-      || glossaryCategory(item.title) === activeGlossaryCategory.value
+      || item.category === activeGlossaryCategory.value
     const matchesKeyword = !keyword
       || item.title.toLowerCase().includes(keyword)
       || item.description?.toLowerCase().includes(keyword)
