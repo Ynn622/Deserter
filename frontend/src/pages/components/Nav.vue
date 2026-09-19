@@ -10,7 +10,7 @@
 
         <!-- Desktop Navigation -->
         <div class="hidden md:flex items-center space-x-6 lg:space-x-8">
-          <router-link to="/military" class="hover:text-green-600 transition-colors">國軍介紹</router-link>
+          <router-link to="/troop-calendar" class="hover:text-green-600 transition-colors">入伍行事曆</router-link>
           <router-link to="/new-soldier-guide" class="hover:text-green-600 transition-colors">新兵入伍指南</router-link>
           <router-link to="/lottery" class="hover:text-green-600 transition-colors">國軍抽籤</router-link>
           <router-link to="/deserters" class="hover:text-green-600 transition-colors">閃兵傳奇</router-link>
@@ -29,7 +29,7 @@
 
       <!-- Mobile Navigation -->
       <div v-show="isMenuOpen" id="mobileNav" class="md:hidden pb-4 pl-2 space-y-3 bg-gray-700 w-full z-40">
-        <router-link to="/military" class="block hover:text-green-600 transition-colors">國軍介紹</router-link>
+        <router-link to="/troop-calendar" class="block hover:text-green-600 transition-colors">入伍行事曆</router-link>
         <router-link to="/new-soldier-guide" class="block hover:text-green-600 transition-colors">新兵入伍指南</router-link>
         <router-link to="/lottery" class="block hover:text-green-600 transition-colors">國軍抽籤</router-link>
         <router-link to="/deserters" class="block hover:text-green-600 transition-colors">閃兵傳奇</router-link>

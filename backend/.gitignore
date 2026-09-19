@@ -3,3 +3,4 @@ __pycache__/
 .env
 /Logo.png
 conversations.db*
+/cache/

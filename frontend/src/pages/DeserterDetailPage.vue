@@ -240,6 +240,7 @@
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { addComment, deleteComment, subscribeToComments } from '../services/firebase'
+import api from '../services/api'
 import { currentUser, isLoggedIn } from '../stores/user'
 import Nav from './components/Nav.vue'
 import AppFooter from './components/AppFooter.vue'
@@ -312,9 +313,12 @@ const formatTimestamp = (timestamp) => {
 const fetchNews = async () => {
   loading.value = true
   try {
-    // TODO: 替換成實際的API URL
-    const response = await fetch(`https://ynn22-deserter.hf.space/news/summary?keyword=${deserter.value.stageName}&page=1`)
-    const data = await response.json()
+    const { data } = await api.get('/news/summary', {
+      params: {
+        keyword: deserter.value.stageName,
+        page: 1
+      }
+    })
     
     news.value = data.news || []
     updateTime.value = data.updateTime || ''

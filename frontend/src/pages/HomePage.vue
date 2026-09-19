@@ -73,9 +73,9 @@ const router = useRouter()
 const features = [
   {
     id: 1,
-    title: '國軍簡介',
-    description: '守護家園的力量，也是每位青年都該了解的國防核心。',
-    route: '/military'
+    title: '入伍行事曆',
+    description: '選擇軍種與梯次，快速掌握入伍後的重要行程。',
+    route: '/troop-calendar'
   },
   {
     id: 2,

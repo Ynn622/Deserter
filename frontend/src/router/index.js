@@ -5,6 +5,7 @@ import DeserterDetailPage from '../pages/DeserterDetailPage.vue'
 import LotteryPage from '../pages/LotteryPage.vue'
 import MilitaryPage from '../pages/MilitaryPage.vue'
 import NewSoldierGuidePage from '../pages/NewSoldierGuidePage.vue'
+import TroopCalendarPage from '../pages/TroopCalendarPage.vue'
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: '/new-soldier-guide',
     name: 'NewSoldierGuide',
     component: NewSoldierGuidePage
+  },
+  {
+    path: '/troop-calendar',
+    name: 'TroopCalendar',
+    component: TroopCalendarPage
   },
   {
     path: '/about',
