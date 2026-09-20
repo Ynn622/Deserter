@@ -8,8 +8,15 @@
     />
 
     <!-- Lottery Section -->
-    <main class="py-12 lg:py-20 flex-1">
-      <div class="container mx-auto px-4">
+    <main class="lottery-stage relative isolate flex-1 overflow-hidden bg-gradient-to-b from-gray-100 via-[#edf1e9] to-gray-100 py-12 lg:py-20">
+      <!-- 低調的軍事地圖感背景 -->
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 overflow-hidden">
+        <div class="absolute -left-28 top-16 h-72 w-72 rounded-full border-[42px] border-green-900/[0.035]"></div>
+        <div class="absolute -right-28 bottom-10 h-80 w-80 rounded-full bg-green-700/[0.045] blur-3xl"></div>
+        <div class="absolute left-1/2 top-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/45 blur-3xl"></div>
+      </div>
+
+      <div class="container relative z-10 mx-auto px-4">
         <div class="max-w-2xl lg:max-w-4xl mx-auto">
           
           <!-- Lottery Box -->
@@ -636,6 +643,19 @@ const getBranchColor = (branch) => {
 </script>
 
 <style scoped>
+.lottery-stage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(20, 83, 45, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 83, 45, 0.035) 1px, transparent 1px);
+  background-size: 36px 36px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 16%, black 84%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, black 16%, black 84%, transparent);
+}
+
 .lottery-box {
   transition: all 0.2s;
 }
