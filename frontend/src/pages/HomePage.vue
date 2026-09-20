@@ -20,13 +20,13 @@
           </h1>
           
           <p class="heroSubtitle text-lg md:text-xl lg:text-2xl text-gray-200">
-            本網站以輕鬆幽默的方式介紹台灣三軍與兵役文化。
+            本網站以輕鬆幽默的方式介紹兵役、並提供新兵入伍建議。
           </p>
 
           <div class="heroWarning flex items-start justify-center space-x-2 bg-yellow-600/90 text-yellow-100 px-4 py-3 rounded-lg max-w-2xl mx-auto">
             <font-awesome-icon icon="exclamation-triangle" class="mt-1 flex-shrink-0" />
             <p class="text-sm md:text-base text-left">
-              <span class="font-bold">注意：</span>本站所有重轉形象皆為虛構，若有雷同，純屬巧合。
+              <span class="font-bold">注意：</span>本站只負責搞笑；人物與情節皆為虛構，如有雷同，那真的只是巧合
             </p>
           </div>
         </div>
