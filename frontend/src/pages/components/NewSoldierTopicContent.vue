@@ -167,7 +167,7 @@
     </div>
 
     <!-- 五大心法 -->
-    <div v-else class="space-y-4">
+    <div v-else-if="topicIndex === 3" class="space-y-4">
       <article
         v-for="(item, index) in topic.content"
         :key="item.title"
@@ -185,6 +185,71 @@
           </p>
         </div>
       </article>
+    </div>
+
+    <!-- 期末鑑測 -->
+    <div v-else class="space-y-6">
+      <section class="relative overflow-hidden rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-5 sm:p-6">
+        <div class="pointer-events-none absolute -right-10 -top-12 h-36 w-36 rounded-full border-[22px] border-amber-900/5"></div>
+        <div class="relative flex items-start gap-4">
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-800 text-white shadow-sm">
+            <font-awesome-icon :icon="['fas', 'flag-checkered']" />
+          </span>
+          <div>
+            <p class="text-xs font-black tracking-[0.18em] text-amber-700">FINAL ASSESSMENT</p>
+            <h3 class="mt-1 text-xl font-black text-gray-900 lg:text-2xl">這是新訓成果的總驗收</h3>
+            <p class="mt-2 text-sm leading-7 text-gray-700 lg:text-base">{{ topic.summary }}</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="grid gap-4 md:grid-cols-2">
+        <article
+          v-for="item in topic.content"
+          :key="item.title"
+          class="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-md lg:p-6"
+        >
+          <div class="flex items-start gap-3">
+            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-800">
+              <font-awesome-icon :icon="item.icon" />
+            </span>
+            <div>
+              <h3 class="text-lg font-black text-gray-900 lg:text-xl">{{ item.title }}</h3>
+              <p class="mt-2 text-sm leading-7 text-gray-600 lg:text-base">{{ item.description }}</p>
+            </div>
+          </div>
+
+          <ul v-if="item.details" class="mt-4 space-y-2 border-t border-gray-100 pt-4">
+            <li v-for="detail in item.details" :key="detail" class="flex items-start gap-2 text-sm leading-6 text-gray-700">
+              <font-awesome-icon :icon="['fas', 'circle-check']" class="mt-1 shrink-0 text-amber-700" />
+              <span>{{ detail }}</span>
+            </li>
+          </ul>
+        </article>
+      </div>
+
+      <section class="grid gap-4 sm:grid-cols-2">
+        <div class="rounded-2xl border border-blue-100 bg-blue-50 p-5">
+          <h3 class="flex items-center gap-2 font-black text-blue-900">
+            <font-awesome-icon :icon="['fas', 'rotate']" />
+            沒達標怎麼辦？
+          </h3>
+          <p class="mt-2 text-sm leading-7 text-blue-950/80">{{ topic.retest }}</p>
+        </div>
+
+        <div class="rounded-2xl border border-emerald-100 bg-emerald-50 p-5">
+          <h3 class="flex items-center gap-2 font-black text-emerald-900">
+            <font-awesome-icon :icon="['fas', 'lightbulb']" />
+            過來人的準備重點
+          </h3>
+          <p class="mt-2 text-sm leading-7 text-emerald-950/80">{{ topic.note }}</p>
+        </div>
+      </section>
+
+      <p class="flex items-start gap-2 rounded-xl border border-dashed border-gray-300 bg-gray-50 p-4 text-xs leading-6 text-gray-500 sm:text-sm">
+        <font-awesome-icon :icon="['fas', 'circle-info']" class="mt-1 shrink-0 text-amber-700" />
+        本頁列出一般營區常見的期末鑑測內容；實際項目、順序、合格門檻與行軍安排，可能依營區、梯次、役別及軍種微調，請以現場幹部宣布為準。
+      </p>
     </div>
   </div>
 </template>

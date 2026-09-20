@@ -129,12 +129,12 @@
         </div>
       </section>
 
-      <!-- 四大求生主題 -->
+      <!-- 五大求生主題 -->
       <section class="bg-gradient-to-b from-gray-100 to-gray-200 py-10 lg:py-16">
         <div class="container mx-auto px-4">
           <div class="mx-auto mb-8 max-w-2xl text-center lg:mb-12">
             <p class="mb-2 text-xs font-black tracking-[0.24em] text-green-800 lg:text-sm">NEW SOLDIER SURVIVAL GUIDE</p>
-            <h2 class="text-2xl font-black text-gray-900 md:text-3xl lg:text-4xl">四大求生主題</h2>
+            <h2 class="text-2xl font-black text-gray-900 md:text-3xl lg:text-4xl">五大求生主題</h2>
             <p class="mt-3 text-sm leading-7 text-gray-600 lg:text-base">
               不必從頭讀到尾，直接選擇現在最需要的主題，快速找到答案。
             </p>
@@ -142,7 +142,7 @@
 
           <!-- 電腦版：固定主題目錄搭配單一內容閱讀區 -->
           <div class="mx-auto hidden max-w-6xl items-start gap-6 lg:grid lg:grid-cols-[17rem_minmax(0,1fr)]">
-            <aside class="sticky top-24 space-y-3" aria-label="四大求生主題目錄">
+            <aside class="sticky top-24 space-y-3" aria-label="五大求生主題目錄">
               <button
                 v-for="(topic, index) in topics"
                 :key="topic.title"
@@ -228,17 +228,28 @@
           <div class="mx-auto mt-8 flex max-w-6xl flex-col items-start justify-between gap-3 rounded-xl border border-gray-300 bg-white/70 px-4 py-3 text-xs text-gray-600 sm:flex-row sm:items-center sm:px-5 sm:text-sm">
             <p class="flex items-center gap-2">
               <font-awesome-icon :icon="['fas', 'book-open']" class="text-green-800" />
-              四大求生主題內容參考自「國軍英雄補給站－新兵入伍指南」。
+              前四項內容參考「國軍英雄補給站－新兵入伍指南」；期末鑑測依公開資料與常見營區實務整理，實際內容以受訓單位公告為準。
             </p>
-            <a
-              href="https://armydealer.waca.tw/blogs"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="shrink-0 font-bold text-green-800 underline decoration-green-800/30 underline-offset-4 hover:text-green-600"
-            >
-              查看資料來源
-              <font-awesome-icon :icon="['fas', 'arrow-up-right-from-square']" class="ml-1" />
-            </a>
+            <div class="flex shrink-0 flex-wrap gap-x-4 gap-y-2 font-bold">
+              <a
+                href="https://armydealer.waca.tw/blogs"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-green-800 underline decoration-green-800/30 underline-offset-4 hover:text-green-600"
+              >
+                原指南
+                <font-awesome-icon :icon="['fas', 'arrow-up-right-from-square']" class="ml-1" />
+              </a>
+              <a
+                href="https://www.mnd.gov.tw/NewUpload/202312/%E5%9C%8B%E8%BB%8D%E5%85%A5%E4%BC%8D%E8%A8%93%E7%B7%B4%E8%BC%94%E8%A8%93%E3%80%81%E8%A3%9C%E6%B8%AC%E6%8C%87%E5%B0%8E%E4%BD%9C%E6%B3%95_572540.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-green-800 underline decoration-green-800/30 underline-offset-4 hover:text-green-600"
+              >
+                鑑測與補測規定
+                <font-awesome-icon :icon="['fas', 'arrow-up-right-from-square']" class="ml-1" />
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -284,6 +295,11 @@ const topicThemes = [
     navActive: 'border-green-800 bg-green-800 text-white shadow-lg',
     icon: 'bg-green-100 text-green-800',
     eyebrow: 'text-green-700'
+  },
+  {
+    navActive: 'border-amber-800 bg-amber-800 text-white shadow-lg',
+    icon: 'bg-amber-100 text-amber-800',
+    eyebrow: 'text-amber-700'
   }
 ]
 
@@ -359,7 +375,7 @@ onUnmounted(() => {
   enlistmentAnimationContext?.revert()
 })
 
-// 四大主題資料
+// 五大主題資料
 const topics = [
   {
     icon: ['fas', 'bell'],
@@ -745,6 +761,55 @@ const topics = [
         note: '換個角度，把當兵當成訓練意志力的遊戲，心情會好很多。'
       }
     ]
+  },
+  {
+    icon: ['fas', 'clipboard-check'],
+    title: '期末鑑測在做什麼？',
+    subtitle: '把新訓學過的體能、射擊、單戰與野外課目一次驗收，撐過這關就接近結訓。',
+    summary: '期末鑑測通常不是只考一天或單一項目，而是依課表分站、分日驗收。以下是一般營區常見內容與門檻；梯次、役別、軍種及營區可能有些微調整。',
+    content: [
+      {
+        title: '基本體能三項',
+        icon: ['fas', 'dumbbell'],
+        description: '常見會集中驗收核心肌力、上肢肌耐力與長跑能力。',
+        details: [
+          '平板撐體：50 秒',
+          '伏地挺身：28 下',
+          '3,000 公尺跑步：18 分 45 秒'
+        ]
+      },
+      {
+        title: '實彈射擊',
+        icon: ['fas', 'crosshairs'],
+        description: '常見鑑測為射擊 18 發，命中 9 發達到合格門檻。重點是依射擊指揮與靶場安全規定完成操作。'
+      },
+      {
+        title: '單兵戰鬥與狀況演練',
+        icon: ['fas', 'person-military-rifle'],
+        description: '包含單兵震撼教練與城鎮戰演練，並依教官下達的不同狀況，完成臥倒、掩蔽、移動、警戒或團隊協同等反應。',
+        details: [
+          '單兵震撼教練',
+          '狀況處置',
+        ]
+      },
+      {
+        title: '戰備檢查、行軍與宿營',
+        icon: ['fas', 'person-walking'],
+        description: '依表定攜行裝備完成戰備檢查後，常見安排兩天各 10 公里的行軍，夜間搭設帳篷並在野外宿營。'
+      },
+      {
+        title: '手榴彈投擲',
+        icon: ['fas', 'bomb'],
+        description: '依口令、投擲程序與安全規定完成手榴彈基本投擲，重點是動作確實，不搶快。'
+      },
+      {
+        title: '槍枝操作',
+        icon: ['fas', 'gears'],
+        description: '驗收槍枝大部分解、結合與驗槍程序，確認能依正確順序安全操作並完成檢查。'
+      }
+    ],
+    retest: '若有項目未達標，通常會針對不合格項目安排補測；實際補測方式與結訓認定，以單位當梯規定為準。',
+    note: '別只在鑑測前硬撐：平時把口令、操作順序與安全規定記熟。通常只要乖乖訓練，100%都能順利通過！'
   },
 ]
 
