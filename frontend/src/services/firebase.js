@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app'
+import { getAnalytics, isSupported as isAnalyticsSupported } from 'firebase/analytics'
 import { 
   getAuth, 
   GoogleAuthProvider, 
@@ -23,6 +24,22 @@ const firebaseConfig = JSON.parse(import.meta.env.VITE_FIREBASE_CONFIG)
 
 // 初始化 Firebase
 const app = initializeApp(firebaseConfig)
+
+// 僅在正式網站啟用流量統計，避免本機開發／預覽污染 GA4 數據。
+// GA4 加強型評估會依瀏覽器 history 變化自動追蹤 Vue Router 頁面瀏覽。
+const isLocalHost = ['localhost', '127.0.0.1', '[::1]'].includes(window.location.hostname)
+
+if (import.meta.env.PROD && !isLocalHost) {
+  isAnalyticsSupported()
+    .then((supported) => {
+      if (supported) {
+        getAnalytics(app)
+      }
+    })
+    .catch((error) => {
+      console.warn('Firebase Analytics 初始化失敗:', error)
+    })
+}
 
 // 初始化 Firebase Authentication
 export const auth = getAuth(app)
