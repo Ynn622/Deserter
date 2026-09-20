@@ -49,7 +49,9 @@
             :key="feature.id"
             :title="feature.title"
             :description="feature.description"
-            @navigate="handleCardClick(feature.title)"
+            :icon="feature.icon"
+            :eyebrow="feature.eyebrow"
+            @navigate="handleCardClick(feature.route)"
           />
         </div>
       </div>
@@ -75,36 +77,38 @@ const features = [
     id: 1,
     title: '入伍行事曆',
     description: '選擇軍種與梯次，快速掌握入伍後的重要行程。',
+    icon: ['fas', 'calendar-days'],
+    eyebrow: 'SCHEDULE',
     route: '/troop-calendar'
   },
   {
     id: 2,
     title: '新兵入伍指南',
     description: '第一次入伍？別怕，這裡是你的軍中求生指南！',
+    icon: ['fas', 'book-open'],
+    eyebrow: 'FIELD GUIDE',
     route: '/new-soldier-guide'
   },
   {
     id: 3,
     title: '國軍抽籤',
     description: '神啊～我是什麼單位！',
+    icon: ['fas', 'ticket'],
+    eyebrow: 'DRAW LOTS',
     route: '/lottery'
   },
   {
     id: 4,
     title: '閃兵傳奇',
     description: '什麼？當兵是什麼？能吃嗎？',
+    icon: ['fas', 'person-running'],
+    eyebrow: 'LEGENDS',
     route: '/deserters'
   },
 ]
 
-const handleCardClick = (title) => {
-  const feature = features.find(f => f.title === title)
-  if (feature && feature.route) {
-    router.push(feature.route)
-  } else {
-    console.log('Navigate to:', title)
-    // TODO: 實作其他路由
-  }
+const handleCardClick = (route) => {
+  router.push(route)
 }
 
 const scrollDown = () => {
