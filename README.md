@@ -3,258 +3,250 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Vue.js-4FC08D?logo=vue.js&logoColor=white" alt="Vue.js">
   <img src="https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white" alt="Vite">
-  <img src="https://img.shields.io/badge/TailwindCSS-06B6D4?logo=tailwindcss&logoColor=white" alt="TailwindCSS">
+  <img src="https://img.shields.io/badge/TailwindCSS-06B6D4?logo=tailwindcss&logoColor=white" alt="Tailwind CSS">
   <img src="https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white" alt="FastAPI">
-  <img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white" alt="Python">
   <img src="https://img.shields.io/badge/Firebase-FFCA28?logo=firebase&logoColor=black" alt="Firebase">
-  <img src="https://img.shields.io/badge/Font_Awesome-528DD7?logo=fontawesome&logoColor=white" alt="Font Awesome">
 </p>
 
 <p align="center">
-  <strong>一個以幽默方式介紹台灣三軍與兵役文化的全端網站</strong><br>
-  <em>⚠️ 本站部分軍種為虛構。若有雷同，純屬巧合。</em>
+  <strong>以輕鬆的方式整理臺灣兵役資訊、新兵入伍建議與互動內容。</strong><br>
+  <em>本站部分人物與情節為幽默創作；實際兵役規定與訓練行程請以政府及受訓單位公告為準。</em>
 </p>
 
 ---
 
-## 📖 專案簡介
+## 專案簡介
 
-「逃兵大陸」是一個以輕鬆幽默的方式介紹台灣軍事文化和兵役制度的現代化全端網站。採用 **Vue 3 + FastAPI** 架構，提供互動式的使用者體驗與豐富的兵役資訊。
+「逃兵大陸」是採用 Vue 3 與 FastAPI 開發的前後端分離網站，將入伍流程、梯次行事曆、新兵求生指南、國軍抽籤與兵役相關趣味內容集中在同一個入口。
 
-### 🎯 專案目標
-- 以幽默方式降低新兵對入伍的焦慮
-- 提供實用的軍中生存指南
-- 介紹台灣國軍的歷史與現況
-- 展示知名藝人的閃兵傳奇故事
-- 提供互動式抽籤體驗
+網站著重響應式閱讀體驗，並透過後端定期整理公開兵役資料，讓使用者能依軍種與梯次快速查看重要日期。
 
----
+## 主要功能
 
-## ✨ 主要功能
+### 入伍行事曆
 
-### 🏠 首頁 (HomePage)
-- 網站簡介與導航
-- 快速進入各功能頁面
+- 可選擇陸軍、海軍艦艇兵、海軍陸戰隊與空軍。
+- 依入伍梯次查看懇親、休假、抽籤、鑑測、訓練、撥交及結訓等日期。
+- 同時提供文字摘要與月曆視圖，點擊事件會以小視窗顯示完整資訊。
+- 後端每日整理一次資料並快取 24 小時。
+- 主要來源為新北市政府「役男大亨 ONLINE」。
+- 臺北市政府兵役局訓練流路 PDF 作為輔助來源；已存在的相同梯次直接跳過，不混合兩邊內容。
 
-### 🎖️ 國軍簡介 (MilitaryPage)
-- 台灣三軍介紹
-- 兵役制度說明
-- 軍種特色展示
+### 新兵入伍指南
 
-### 📋 新兵入伍指南 (NewSoldierGuidePage)
-- 入伍準備清單
-- 軍中生活須知
-- 實用生存技巧
+- 「入伍前三站」流程與常見時間區間。
+- 五大求生主題：
+  - 入伍前後注意事項
+  - 新訓常用名詞解釋
+  - 部隊常見班級類型
+  - 不被班長盯上的五大心法
+  - 期末鑑測在做什麼
+- 文件與行李分成「必帶」及「建議攜帶」。
+- 常用名詞提供搜尋及分類篩選。
+- 桌機使用固定側邊目錄，手機使用收合式主題卡片。
 
-### 🏃 閃兵傳奇 (DesertersPage)
-- 知名藝人閃兵故事
-- 詳細人物檔案
-- 互動式卡片展示
+### 國軍抽籤
 
-### 🎲 抽籤體驗 (LotteryPage)
-- 模擬抽籤過程
-- 互動式籤運體驗
+- 模擬軍種抽籤流程。
+- 區分四個月軍事訓練與一年期義務役機率。
+- 支援分享抽籤結果。
 
-### 📰 新聞資料 API
-- 關鍵字新聞搜尋
-- 新聞摘要整理
-- 即時資料更新
+### 閃兵傳奇
 
----
+- 人物列表與個別詳情頁面。
+- 透過後端 API 查詢相關新聞摘要。
+- Firebase Google 登入與 Firestore 留言功能。
 
-## 🏗️ 技術架構
+### 其他功能
 
-### 前端技術棧
-- **框架**: Vue 3 (Composition API)
-- **建置工具**: Vite
-- **路由**: Vue Router 4
-- **狀態管理**: Pinia (User Store)
-- **樣式**: Tailwind CSS 4 + PostCSS
-- **動畫**: GSAP
-- **圖標**: Font Awesome
-- **UI 元件**: SweetAlert2
-- **後端服務**: Firebase (Authentication & Database)
+- 首頁功能導覽與 GSAP 動畫。
+- 國軍介紹及關於我們頁面。
+- 響應式導覽列與共用頁尾。
+- 正式環境版本更新提示與 GA4 流量統計。
 
-### 後端技術棧
-- **框架**: FastAPI
-- **語言**: Python 3
-- **網頁爬蟲**: BeautifulSoup4 + Cloudscraper
-- **資料處理**: Pandas
-- **ASGI 伺服器**: Uvicorn
-- **環境管理**: python-dotenv
-- **容器化**: Docker
+## 技術架構
 
----
+### 前端
 
-## 📁 專案結構
+- Vue 3 Composition API
+- Vue Router 4
+- Vite 7
+- Tailwind CSS 4
+- Axios
+- GSAP
+- Font Awesome
+- SweetAlert2
+- Firebase Authentication、Firestore、Analytics
 
-```
+### 後端
+
+- Python 3.11
+- FastAPI + Uvicorn
+- Requests
+- BeautifulSoup4 + lxml
+- pypdf
+- Pandas
+- Docker
+
+## 資料處理流程
+
+入伍行事曆的後端處理原則如下：
+
+1. 爬取新北市政府入伍梯次資料作為主要來源。
+2. 讀取臺北市政府兵役局最新公告列表及候選 PDF。
+3. 以軍種、梯次、入營日及營區辨識是否為相同資料。
+4. 相同梯次直接跳過；主要來源不存在時才加入 PDF 梯次。
+5. 將整理結果快取 24 小時，來源更新失敗時可回傳相容的舊快取。
+
+## 專案結構
+
+```text
 Deserter/
-├── 📄 README.md                       # 專案說明文件
-│
-├── 📁 frontend/                       # 前端專案
-│   ├── 📄 index.html                  # 主 HTML 檔
-│   ├── 📄 package.json                # 前端依賴管理
-│   ├── 📄 vite.config.js              # Vite 配置
-│   ├── 📄 tailwind.config.js          # Tailwind CSS 配置
-│   ├── 📄 postcss.config.js           # PostCSS 配置
-│   ├── 📄 jsconfig.json               # JavaScript 配置
-│   │
-│   ├── 📁 src/
-│   │   ├── 📄 main.js                 # 應用程式入口
-│   │   ├── 📄 App.vue                 # 根組件
-│   │   │
-│   │   ├── 📁 pages/                  # 頁面組件
-│   │   │   ├── HomePage.vue           # 首頁
-│   │   │   ├── MilitaryPage.vue       # 國軍簡介
-│   │   │   ├── NewSoldierGuidePage.vue # 新兵指南
-│   │   │   ├── DesertersPage.vue      # 閃兵傳奇列表
-│   │   │   ├── DeserterDetailPage.vue # 閃兵詳情
-│   │   │   ├── LotteryPage.vue        # 抽籤體驗
-│   │   │   └── AboutPage.vue          # 關於頁面
-│   │   │
-│   │   ├── 📁 pages/components/       # 頁面元件
-│   │   │   ├── Nav.vue                # 導航欄
-│   │   │   ├── AppFooter.vue          # 頁尾
-│   │   │   ├── PageHeader.vue         # 頁面標題
-│   │   │   ├── FeatureCard.vue        # 功能卡片
-│   │   │   ├── DeserterCard.vue       # 逃兵卡片
-│   │   │   ├── DeserterListItem.vue   # 逃兵列表項
-│   │   │   └── UserMenu.vue           # 使用者選單
-│   │   │
-│   │   ├── 📁 router/                 # 路由配置
-│   │   │   └── index.js               # 路由定義
-│   │   │
-│   │   ├── 📁 stores/                 # 狀態管理
-│   │   │   └── user.js                # 使用者狀態
-│   │   │
-│   │   ├── 📁 services/               # 服務層
-│   │   │   └── firebase.js            # Firebase 配置
-│   │   │
-│   │   ├── 📁 assets/                 # 樣式資源
-│   │   │   ├── base.css               # 基礎樣式
-│   │   │   └── main.css               # 主樣式
-│   │   │
-│   │   └── 📁 picture/                # 圖片資源
-│   │       └── deserters/             # 閃兵傳奇人物圖片
-│   │
-│   └── 📁 public/                     # 靜態資源
-│
-└── 📁 backend/                        # 後端專案
-    ├── 📄 app.py                      # FastAPI 應用主檔
-    ├── 📄 requirements.txt            # Python 依賴
-    ├── 📄 Dockerfile                  # Docker 配置
-    ├── 📄 README.md                   # 後端說明文件
-    │
-    ├── 📁 API/                        # API 路由
-    │   └── news_router.py             # 新聞 API 路由
-    │
-    ├── 📁 services/                   # 業務邏輯
-    │   └── news_data.py               # 新聞資料服務
-    │
-    └── 📁 util/                       # 工具模組
-        ├── config.py                  # 環境配置
-        ├── logger.py                  # 日誌工具
-        └── nowtime.py                 # 時間工具
+├── frontend/
+│   ├── src/
+│   │   ├── pages/
+│   │   │   ├── HomePage.vue
+│   │   │   ├── TroopCalendarPage.vue
+│   │   │   ├── NewSoldierGuidePage.vue
+│   │   │   ├── LotteryPage.vue
+│   │   │   ├── MilitaryPage.vue
+│   │   │   ├── DesertersPage.vue
+│   │   │   ├── DeserterDetailPage.vue
+│   │   │   ├── AboutPage.vue
+│   │   │   └── components/
+│   │   ├── router/
+│   │   ├── services/
+│   │   │   ├── api.js
+│   │   │   └── firebase.js
+│   │   ├── stores/
+│   │   └── utilities/
+│   │       └── versionChecker.js
+│   └── package.json
+├── backend/
+│   ├── API/
+│   │   ├── news_router.py
+│   │   └── troop_calendar_router.py
+│   ├── services/
+│   │   ├── news_data.py
+│   │   └── troop_calendar.py
+│   ├── tests/
+│   │   └── test_troop_calendar.py
+│   ├── util/
+│   ├── app.py
+│   ├── requirements.txt
+│   └── Dockerfile
+└── README.md
 ```
 
+## 頁面路由
 
----
+| 路由 | 頁面 | 說明 |
+| --- | --- | --- |
+| `/` | 首頁 | 主要功能入口 |
+| `/troop-calendar` | 入伍行事曆 | 軍種、梯次、文字行程及月曆 |
+| `/new-soldier-guide` | 新兵入伍指南 | 入伍流程與五大求生主題 |
+| `/lottery` | 國軍抽籤 | 互動抽籤與結果分享 |
+| `/deserters` | 閃兵傳奇 | 人物列表 |
+| `/deserters/:id` | 閃兵詳情 | 人物資訊、新聞與留言 |
+| `/military` | 國軍介紹 | 國軍與軍種介紹 |
+| `/about` | 關於我們 | 專案說明 |
 
-## 🚀 核心功能特色
+## API
 
+### 新聞摘要
 
-### 📡 新聞資料 API
-- **端點**: `GET /news/summary`
-- **參數**: 
-  - `keyword`: 搜尋關鍵字
-  - `page`: 頁碼（預設為 1）
-- **功能**: 提供即時新聞摘要與資料爬取
-
-### 🎨 前端互動體驗
-- 響應式設計，支援多種裝置
-- 動畫效果提升使用體驗 (GSAP)
-- 優雅的警告訊息 (SweetAlert2)
-- 流暢的頁面切換
-
-### 🔥 Firebase 整合
-- 使用者認證系統
-- 即時資料庫
-- 安全的資料存取
-
----
-
-## 📱 頁面導覽
-
-| 路由 | 頁面名稱 | 說明 |
-|-----|---------|------|
-| `/` | 首頁 | 網站入口，功能導覽 |
-| `/military` | 國軍簡介 | 台灣三軍介紹 |
-| `/new-soldier-guide` | 新兵指南 | 入伍準備與生存技巧 |
-| `/deserters` | 閃兵傳奇 | 藝人閃兵故事列表 |
-| `/deserters/:id` | 閃兵詳情 | 單一人物詳細資訊 |
-| `/lottery` | 抽籤體驗 | 互動式抽籤模擬 |
-| `/about` | 關於 | 關於本專案 |
-
----
-
-## 🛠️ API 文件
-
-### 認證方式
-API 文件採用 HTTP Basic Authentication 保護，需要提供正確的帳號密碼才能存取。
-
-### 可用端點
-
-#### 取得新聞摘要
 ```http
 GET /news/summary?keyword={關鍵字}&page={頁碼}
 ```
 
-**回應範例**:
-```json
-{
-  "news": [
-    {
-      "title": "新聞標題",
-      "content": "新聞內容摘要",
-      "url": "新聞連結"
-    }
-  ],
-  "updateTime": "2026-01-08 12:00:00"
-}
+### 入伍行事曆
+
+```http
+GET /troop-calendar
+GET /troop-calendar?branch=陸軍
+GET /troop-calendar?schedule_id={梯次資料ID}
 ```
 
----
+支援的軍種為 `陸軍`、`海軍艦艇兵`、`海軍陸戰隊`、`空軍`。
 
-## 🌟 未來計劃
+### 系統端點
 
-- [ ] 🌙 深色模式切換
-- [ ] 🔍 進階搜尋功能
-- [ ] 📊 兵役統計儀表板
-- [ ] 🎮 互動式軍事小遊戲
-- [ ] 🔔 新聞推播通知
-- [ ] 👤 個人化使用者設定
+```http
+GET /health
+GET /docs
+GET /redoc
+```
 
----
+`/docs`、`/redoc` 及 `/openapi.json` 使用 HTTP Basic Authentication 保護。
 
-## 🙏 致謝
+## 本機開發
 
-### 特別感謝
+### 前端
 
-- 🎖️ **所有為台灣國防付出的役男們**
-- 🤖 **GitHub Copilot** - AI 輔助開發
+需求：Node.js `^20.19.0` 或 `>=22.12.0`。
 
+```bash
+cd frontend
+npm install
+cp .env.example .env
+npm run dev
+```
 
-## 📄 授權
+前端環境變數：
+
+```dotenv
+VITE_FIREBASE_CONFIG={"apiKey":"...","authDomain":"...","projectId":"..."}
+VITE_API_BASE_URL=http://localhost:7860
+```
+
+### 後端
+
+```bash
+cd backend
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+uvicorn app:app --host 0.0.0.0 --port 7860 --reload
+```
+
+後端 `.env`：
+
+```dotenv
+DOCS_USERNAME=your-username
+DOCS_PASSWORD=your-password
+PORT=7860
+RELOAD=true
+```
+
+可選設定：
+
+- `TROOP_CALENDAR_CACHE_PATH`：指定行事曆快取檔路徑。
+- `TROOP_CALENDAR_TAIPEI_MAX_PDFS`：每次最多處理的臺北市 PDF 數量，預設為 `40`。
+
+## 測試與建置
+
+```bash
+# 後端
+cd backend
+python -m unittest discover -s tests -v
+
+# 前端
+cd frontend
+npm run build
+```
+
+## 資料來源與免責聲明
+
+- 入伍梯次主要來源：[新北市政府役男大亨 ONLINE](https://soldier.ntpc.gov.tw/mt6480)
+- 入伍梯次輔助來源：[臺北市政府兵役局訓練流路一覽表](https://docms.gov.taipei/News.aspx?n=27EEFB0FD3624B52&sms=98D477013A337FFF)
+- 新兵指南部分內容參考：[國軍英雄補給站](https://armydealer.waca.tw/blogs)
+
+公開資料可能因梯次、營區或承辦單位調整而變更，本站內容僅供整理與參考，應以徵集令、戶籍地公所及受訓單位的最新通知為準。
+
+## 授權
 
 本專案僅供學習與娛樂用途。
 
----
-
 <p align="center">
-  Made with ❤️ for Taiwan's Military Service Community
-</p>
-
-<p align="center">
-  <sub>© 2025 逃兵大陸 Deserter. All rights reserved.</sub>
+  <sub>© 2026 逃兵大陸 Deserter</sub>
 </p>
