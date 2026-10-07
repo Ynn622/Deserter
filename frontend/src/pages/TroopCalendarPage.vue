@@ -488,7 +488,9 @@ const loadCalendar = async () => {
       : availableBranches.value[0] || ''
     selectedScheduleId.value = batchOptions.value[0]?.id || ''
   } catch (error) {
-    loadError.value = `暫時無法取得入伍行事曆（${error.message}）`
+    loadError.value = ['ECONNABORTED', 'ETIMEDOUT'].includes(error.code)
+      ? '因server進入冷卻重啟中，請1分鐘後再試'
+      : `暫時無法取得入伍行事曆（${error.message}）`
   } finally {
     isLoading.value = false
   }
